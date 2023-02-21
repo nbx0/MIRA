@@ -31,7 +31,7 @@ Below is a flowchart diagram that illustrates the process of Influenza genome an
 ![](man/figures/mermaid_flow.png)
 
 # Contents
-- [Dockerize iSpy](#docker)
-- [Running iSpy with Docker-Compose](#docker-compose)
-- [NGS Training](#ngs-training)
+- [Dockerize iSpy](https://nbx0.github.io/iSpy/docker.html)
+- [Running iSpy with Docker-Compose](https://nbx0.github.io/iSpy/docker-compose.html)
+- [NGS Training](https://nbx0.github.io/iSpy/#ngs-training)
 
