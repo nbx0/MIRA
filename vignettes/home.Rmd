@@ -28,7 +28,8 @@ will generate the files necessary to upload via FTP to NCBI’s databases
 
 Below is a flowchart diagram that illustrates the process of Influenza genome and SARS-CoV-2 spike-gene assembly and curation. In generality, the process starts with demultiplexed sequencing reads from an Illumina or Oxford Nanopore Technologies sequencer and finish with high quality genomes ready for submission to public repositories.
 
-![](articles/images/mermaid_flow.png)
+![](images/mermaid_flow.png)
+
 
 # Contents
 - [Dockerize iSpy](#docker)

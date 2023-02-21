@@ -1,0 +1,83 @@
+
+# Running iSpy with docker-compose
+
+iSpy relies on four Docker containers to run: **IRMA**, **DAIS-Ribosome**, **spyne**, and **iSpy**. Presently, the IRMA and DAIS-Ribosome docker images are stored in `AWS’s EC`, and the spyne and iSpy docker images are stored in `Quay.io's repository`. These images can be pulled down and built into runnable containers with the ```docker pull``` and ```docker run``` commands.
+
+Instead of pulling down each image one by one and run its container, we can utilize **docker-compose** to pull all the images down at once, build its containers, and configure them to communicate to each other.
+
+There are two versions of the docker-compose:
+
+- [Development](#development-version)  
+- [Production](#production-version)
+
+
+### Software Requirements
+
+- Docker version >= 18
+- Docker-compose version >= 1.29.2
+- Git version >= 2.21.0
+
+### Development Version
+
+This version allows you to mount the code base that is needed to develop the `iSpy` dashboard. Any updates or changes to the code will automatically reflects the changes inside the Docker container. This allows continuous integration (CI) of the application.
+
+#### (1) Clone this respitory
+
+```
+git clone https://git.biotech.cdc.gov/nbx0/iSpy.git
+``` 
+
+#### (2) CD to `iSpy` folder where `docker-compose-quay-dev.yml` file is stored and build all of the services listed in that yaml file
+
+```
+docker-compose up -d 
+```
+
+**-d**: run the container in detached mode <br>
+
+**NOTE:** since iSpy relies on **IRMA**, **DAIS-Ribosome**, **spyne** services to be built first before it can fully utilize these services to run the genome assembly, therefore, docker-compose will start each service in the order of its importance and then link all these services together (e.g. **IRMA**, **DAIS-Ribosome**, and **spyne** are connected using the `backend` network, and iSpy is connected using the `frontend` network)
+
+For more information about the docker-compose syntax, see [docker-compose up reference](https://docs.docker.com/engine/reference/commandline/compose_up/)
+
+
+#### (3) To check if the services are started sucessfully
+
+```
+docker-compose ps
+
+```
+
+#### (4) Access the `iSpy` dashboard on the host network
+
+You can visit the local host using your preferred web browser, type in http://localhost:8080, and check if the dashboard is indeed hosted there.
+
+
+### Production Version
+
+This version assumes that you do not have access to the code base of `spyne` and `iSpy` but is using its latest containerized version.
+
+#### (1) Clone this respitory
+
+```
+git clone https://git.biotech.cdc.gov/nbx0/iSpy.git
+``` 
+
+#### (2) CD to `iSpy` folder where `docker-compose-quay.yml` file is stored and build all of the services listed in that yaml file
+
+```
+docker-compose up -d 
+```
+
+**-d**: run the container in detached mode <br>
+
+#### (3) To check if the services are started sucessfully
+
+```
+docker-compose ps
+
+```
+
+#### (4) Access the `iSpy` dashboard on the host network
+
+You can visit the local host using your preferred web browser, type in http://localhost:8080, and check if the dashboard is indeed hosted there.
+

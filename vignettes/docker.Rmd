@@ -1,0 +1,174 @@
+
+## Dockerize iSpy
+
+There are two versions of the docker images:
+
+- [Development](#development-version)  
+- [Production](#production-version)
+
+### Software Requirements
+
+- Docker version >= 18
+- Git version >= 2.21.0
+
+### Container Dependencies
+
+- spyne (see [our Gitlab repo ](https://github.com/nbx0/spyne))
+
+**NOTE:** make sure spyne container is up and running and its data mount are the same as the one that is used for running iSpy container.
+
+### Development Version
+
+This version allows you to mount the code base that is needed to develop the `iSpy` dashboard. Any updates or changes to the code will automatically reflects the changes inside the Docker container. This allows continuous integration (CI) of the application.
+
+#### (1) Clone this respitory
+
+```
+git clone https://git.biotech.cdc.gov/nbx0/iSpy.git
+``` 
+
+#### (2) CD to `iSpy` folder where `Dockerfile` file is stored and build the docker image. 
+
+__NOTE:__ `Dockerfile` contains a list of instructions and steps of how to build and run the `iSpy` dashboard.
+
+- Build the docker image with a build-arg, BUILD_STAGE=dev
+
+```
+docker build -t iSpy-dev:v1.0.0 --build-arg BUILD_STAGE=dev .
+```
+
+or 
+
+-  Build the docker image with a specific dockerfile for development stage (e.g. `Dockerfile.dev`)
+
+```
+docker build -t iSpy-dev:v1.0.0 -f Dockerfile.dev .
+```
+
+**-t**: add a tag to an image such as the version of the application, e.g. *iSpy-dev:v1.0.0* or *iSpy-dev:latest* <br>
+**`--`file, -f**: name of the Dockerfile <br>
+**`--`build-arg**: set the build stage for the docker image. In this case, we want to build the **development** stage. <br>
+
+_The image took approximately < 10 mins to build_
+
+#### (3) After the build is completed, you can check if the image is built successfully
+
+```
+docker images
+
+REPOSITORY        TAG        IMAGE ID        CREATED        SIZE
+iSpy-dev          v1.0.0     2c22887402d3    2 hours ago    1.63GB
+```
+
+#### (4) To run the `iSpy-dev` container
+
+```    
+docker run -v /path/to/data:/data -v /path/to/iSpy:/iSpy -v /var/run/docker.sock:/var/run/docker.sock -d -p 8080:8050 --name iSpy-dev iSpy-dev:v1.0.0 
+```
+
+**NOTE:** 
+- Change __/path/to/data__ to your local directory where it contains all data files needed to feed into the `iSpy` dashboard. This directory is mounted to `/data` directory inside the container. <br>
+- Change __/path/to/iSpy__ to your local `iSpy` directory. This directory must contain all of the code base needed to build the `iSpy` dashboard. <br>
+- **/var/run/docker.sock:/var/run/docker.sock** is used to connect the host's docker.socket to container's docker.socket where you can run a container inside of another container. <br>
+
+**-d**: run the container in detached mode <br>
+**-v**: mount code base and data files from host directory to container directory **[host_div]:[container_dir]**. By exposing the host directory to docker container, docker will be able to access data files within that mounted directory and use it to fire up the `iSpy` dashboard.  <br>
+**-p**: map the host port to the container port and then all the requests that are made to the host port will be redirected to the Docker container **[host_port]:[container_port]** <br>
+**`--`name**: give an identity to the container <br>
+
+For more information about the Docker syntax, see [Docker run reference](https://docs.docker.com/engine/reference/run/)
+
+#### (5) To check if the container is built sucessfully
+
+```
+docker container ps
+
+
+CONTAINER ID   IMAGE               COMMAND                    CREATED        STATUS        PORTS                    NAMES
+b37b6b19c4e8   iSpy-dev:v1.0.0     "bash dashboard-kickoff"   5 hours ago    Up 5 hours    0.0.0.0:8080->8050/tcp   iSpy-dev
+
+```
+
+**NOTE:** Here the `iSpy-dev` container is published on port **8080** on the host machine, and **8050** is the port of where the `iSpy` is published inside the container. All the requests that are made to the host port will be redirected to the Docker container.
+
+#### (6) Access the `iSpy` dashboard on the host network
+
+You can visit the local host using your preferred web browser, type in http://localhost:8080, and check if the dashboard is indeed hosted there.
+
+### Production Version
+
+This version **ONLY** allows you to mount the data files that are needed to feed into the `iSpy` dashboard. In other words, this version assumes that you do not have access to the code base of `iSpy` but is using its latest containerized version.
+
+#### (1) Clone this respitory
+
+```
+git clone https://git.biotech.cdc.gov/nbx0/iSpy.git
+``` 
+
+#### (2) CD to `iSpy` folder where `Dockerfile` file is stored and build the docker image. 
+
+- Build the docker image with a build-arg, BUILD_STAGE=prod (by DEFAULT)
+
+```
+docker build -t iSpy-prod:v1.0.0 .
+```
+
+or 
+
+- Build the docker image with a specific dockerfile for production stage (e.g. `Dockerfile.prod`)
+
+```
+docker build -t iSpy-prod:v1.0.0 -f Dockerfile.prod .
+```
+
+**-t**: add a tag to an image such as the version of the application, e.g. *iSpy-prod:v1.0.0* or *iSpy-prod:latest* <br>
+**`--`file, -f**: name of the Dockerfile
+
+_The image took approximately < 10 mins to build_
+
+#### (3) After the build is completed, you can check if the image is built successfully.
+
+```
+docker images
+
+REPOSITORY        TAG        IMAGE ID        CREATED        SIZE
+iSpy-prod         v1.0.0     6dab1b639b9a    2 hours ago    1.63GB
+```
+
+#### (4) To run the `iSpy-prod` container
+
+```    
+docker run -v /path/to/data:/data -v /var/run/docker.sock:/var/run/docker.sock -d -p 8050:8050 --name iSpy-prod iSpy-prod:v1.0.0 
+```
+
+**NOTE:** 
+- Change __/path/to/data__ to your local directory where it contains all data files needed to feed into the `iSpy` dashboard. This directory is mounted to `/data` directory inside the container. <br>
+- **/var/run/docker.sock:/var/run/docker.sock** is used to connect the host's docker.socket to container's docker.socket where you can run a container inside of another container<br>
+
+**-d**: run the container in detached mode <br>
+**-v**: mount code base and data files from host directory to container directory **[host_div]:[container_dir]**. By exposing the host directory to docker container, docker will be able to access data files within that mounted directory and use it to feed to the `iSpy` dashboard. <br>
+**-p**: map the host port to the container port and then all the requests that are made to the host port will be redirected to the Docker container **[host_port]:[container_port]** <br>
+**`--`name**: give a identity to the container <br>
+
+For more information about the Docker syntax, see [Docker run reference](https://docs.docker.com/engine/reference/run/)
+
+#### (5) To check if the container is built sucessfully
+
+```
+docker container ps
+
+
+CONTAINER ID   IMAGE                   COMMAND                     CREATED        STATUS        PORTS                    NAMES
+717b0825bc66   iSpy-prod:v1.0.0     "bash dashboard-kickoff"   5 hours ago    Up 5 hours    0.0.0.0:8050->8050/tcp   iSpy-prod
+
+```
+
+**NOTE:** Here we are publishing the `iSpy-prod` container on port **8050** on the host machine. This port is different from the **development** version which we previously launched on port **8080**.
+
+#### (6) Access the `iSpy` dashboard on the host network
+
+You can visit the local host using your preferred web browser, type in http://localhost:8050, and check if the dashboard is indeed hosted there.
+
+
+
+
