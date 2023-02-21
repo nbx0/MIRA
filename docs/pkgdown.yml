@@ -6,10 +6,9 @@ articles:
   docker: docker.html
   getting-started: getting-started.html
   help: help.html
-  home: home.html
   running-ispy: running-ispy.html
   setting-up-containers: setting-up-containers.html
-last_built: 2023-02-21T11:53Z
+last_built: 2023-02-21T12:02Z
 urls:
   reference: https://github.com/nbx0/iSpy/reference
   article: https://github.com/nbx0/iSpy/articles
