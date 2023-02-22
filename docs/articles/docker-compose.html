@@ -50,7 +50,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/docker.html">Containing iSpy</a>
+      <a href="../articles/docker.html">Containerizing iSpy with Docker</a>
     </li>
     <li>
       <a href="../articles/docker-compose.html">Running iSpy with Docker-Compose</a>
@@ -76,7 +76,7 @@
   </ul>
 </li>
 <li>
-  <a href="../articles/help.html">Help</a>
+  <a href="../articles/FAQs.html">FAQs</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -115,112 +115,260 @@
 <div class="section level2">
 <h2 id="running-ispy-with-docker-compose">Running iSpy with docker-compose<a class="anchor" aria-label="anchor" href="#running-ispy-with-docker-compose"></a>
 </h2>
-<p>iSpy relies on four Docker containers to run: <strong>IRMA</strong>,
+<p>The iSpy’s dashboard relies on four Docker containers to run its
+genome assembly and curation: <strong>IRMA</strong>,
 <strong>DAIS-Ribosome</strong>, <strong>spyne</strong>, and
 <strong>iSpy</strong>. Presently, the IRMA and DAIS-Ribosome docker
-images are stored in <code>AWS’s EC</code>, and the spyne and iSpy
-docker images are stored in <code>Quay.io's repository</code>. These
+images are stored in <strong>AWS’s EC</strong>, and the spyne and iSpy
+docker images are stored in <strong>Quay.io’s repository</strong>. These
 images can be pulled down and built into runnable containers with the
 <code>docker pull</code> and <code>docker run</code> commands.</p>
 <p>Instead of pulling down each image one by one and run its container,
 we can utilize <strong>docker-compose</strong> to pull all the images
 down at once, build its containers, and configure them to communicate to
-each other.</p>
-<p>There are two versions of the docker-compose:</p>
+each other. All these tasks can be accomplished using a
+docker-compose.yml file.</p>
+<p>There are two versions of the docker-compose.yml files:</p>
 <ul>
 <li>
-<a href="#development-version">Development</a><br>
-</li>
-<li><a href="#production-version">Production</a></li>
-</ul>
-<div class="section level4">
-<h4 id="software-requirements">Software Requirements<a class="anchor" aria-label="anchor" href="#software-requirements"></a>
-</h4>
-<ul>
-<li>Docker version &gt;= 18</li>
-<li>Docker-compose version &gt;= 1.29.2</li>
-<li>Git version &gt;= 2.21.0</li>
+<a href="#development-version">Development version</a> for
+continuous integration of the application</li>
+<li>
+<a href="#production-version">Production version</a> for deployment
+of the application</li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="development-version">Development Version<a class="anchor" aria-label="anchor" href="#development-version"></a>
-</h4>
+<div class="section level2">
+<h2 id="software-requirements">Software requirements<a class="anchor" aria-label="anchor" href="#software-requirements"></a>
+</h2>
+<ul>
+<li>Docker version &gt;= 20.10,</li>
+<li>Git version &gt;= 2.21</li>
+<li>Docker-compose version &gt;= 1.29</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="development-version-of-ispy">Development version of iSpy<a class="anchor" aria-label="anchor" href="#development-version-of-ispy"></a>
+</h2>
 <p>This version allows you to mount the code base that is needed to
-develop the <code>iSpy</code> dashboard. Any updates or changes to the
-code will automatically reflects the changes inside the Docker
-container. This allows continuous integration (CI) of the
-application.</p>
-<div class="section level5">
-<h5 id="clone-this-respitory">(1) Clone this respitory<a class="anchor" aria-label="anchor" href="#clone-this-respitory"></a>
-</h5>
+develop the <code>iSpy</code> dashboard and <code>spyne</code> pipeline.
+Any updates or changes to the code will automatically reflects the
+changes inside their Docker containers. This allows continuous
+integration (CI) of the application.</p>
+<div class="section level3">
+<h3 id="clone-spyne-respitory">(1) Clone spyne respitory<a class="anchor" aria-label="anchor" href="#clone-spyne-respitory"></a>
+</h3>
+<pre><code>git clone https://git.biotech.cdc.gov/nbx0/spyne.git</code></pre>
+</div>
+<div class="section level3">
+<h3 id="clone-ispy-respitory">(2) Clone iSpy respitory<a class="anchor" aria-label="anchor" href="#clone-ispy-respitory"></a>
+</h3>
 <pre><code>git clone https://git.biotech.cdc.gov/nbx0/iSpy.git</code></pre>
 </div>
-<div class="section level5">
-<h5 id="cd-to-ispy-folder-where-docker-compose-quay-dev-yml-file-is-stored-and-build-all-of-the-services-listed-in-that-yaml-file">(2) CD to <code>iSpy</code> folder where
-<code>docker-compose-quay-dev.yml</code> file is stored and build all of
-the services listed in that yaml file<a class="anchor" aria-label="anchor" href="#cd-to-ispy-folder-where-docker-compose-quay-dev-yml-file-is-stored-and-build-all-of-the-services-listed-in-that-yaml-file"></a>
-</h5>
+<div class="section level3">
+<h3 id="clone-irma-spy-testdata-respitory">(3) Clone irma-spy-testdata respitory<a class="anchor" aria-label="anchor" href="#clone-irma-spy-testdata-respitory"></a>
+</h3>
+<pre><code>git clone https://git.biotech.cdc.gov/nbx0/irma-spy-testdata.git</code></pre>
+</div>
+<div class="section level3">
+<h3 id="extract-test-data-for-running-ispy-and-spyne">(4) Extract test data for running iSpy and spyne<a class="anchor" aria-label="anchor" href="#extract-test-data-for-running-ispy-and-spyne"></a>
+</h3>
+<ul>
+<li>CD to <code>irma-spy-testdata</code> folder where
+<code>data.tar.gz</code> file is stored and extract “runs” from the tar
+archive.</li>
+</ul>
+<pre><code>[ $( which pigz) ] &amp;&amp;\
+    time tar --use-compress-program="pigz -p$(nproc)" -xf data.tar.gz ||\
+    tar -xf data.tar.gz</code></pre>
+</div>
+<div class="section level3">
+<h3 id="cd-to-ispy-folder-where-docker-compose-quay-dev-yml-is-stored-and-edit-the-yaml-file-to-link-the-data-inputs-and-code-base-to-appropriate-containers">(5) CD to <code>iSpy</code> folder where
+<code>docker-compose-quay-dev.yml</code> is stored and edit the yaml
+file to link the data inputs and code base to appropriate
+containers<a class="anchor" aria-label="anchor" href="#cd-to-ispy-folder-where-docker-compose-quay-dev-yml-is-stored-and-edit-the-yaml-file-to-link-the-data-inputs-and-code-base-to-appropriate-containers"></a>
+</h3>
+<ul>
+<li>Mount data directory to <strong>/data</strong> directory inside of
+all containers: change <strong>/path/to/data</strong> to your
+<strong>irma-spy-testdata</strong> directory</li>
+<li>Mount code base of <strong>spyne</strong> to <strong>/spyne</strong>
+directory inside the <strong>spyne</strong> container: change
+<strong>/path/to/spyne</strong> to your <strong>spyne</strong>
+directory</li>
+<li>Mount code base of <strong>iSpy</strong> to <strong>/iSpy</strong>
+directory inside the <strong>ispy</strong> container: change
+<strong>/path/to/iSpy</strong> to your <strong>iSpy</strong>
+directory</li>
+</ul>
+<pre><code>version: "3.9"
+
+x-dais-version:
+  &amp;dais-version 
+  public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1
+
+x-irma-version:
+  &amp;irma-version 
+  public.ecr.aws/n3z8t4o2/irma:1.0.2p3
+
+x-spyne-version:
+  &amp;spyne-version 
+  quay.io/nbx0_cdc/spyne:v1.1.0
+
+x-ispy-version:
+  &amp;ispy-version 
+  quay.io/nbx0_cdc/ispy:v1.1.0
+
+x-data-volumes:
+  &amp;data-volume
+  type: bind
+  source: /path/to/data
+  target: /data
+
+x-docker-volumes:
+  &amp;docker-socket
+  type: bind
+  source: /var/run/docker.sock 
+  target: /var/run/docker.sock 
+
+x-spyne-volumes:
+  &amp;spyne-code
+  type: bind
+  source: /path/to/spyne
+  target: /spyne 
+
+x-ispy-volumes:
+  &amp;ispy-code
+  type: bind
+  source: /path/to/iSpy
+  target: /iSpy</code></pre>
+</div>
+<div class="section level3">
+<h3 id="start-all-services-listed-in-the-docker-compose-yml-file">(6) Start all services listed in the docker-compose.yml file<a class="anchor" aria-label="anchor" href="#start-all-services-listed-in-the-docker-compose-yml-file"></a>
+</h3>
 <pre><code>docker-compose up -d </code></pre>
-<p><strong>-d</strong>: run the container in detached mode <br></p>
-<p><strong>NOTE:</strong> since iSpy relies on <strong>IRMA</strong>,
-<strong>DAIS-Ribosome</strong>, <strong>spyne</strong> services to be
-built first before it can fully utilize these services to run the genome
-assembly, therefore, docker-compose will start each service in the order
-of its importance and then link all these services together
-(e.g. <strong>IRMA</strong>, <strong>DAIS-Ribosome</strong>, and
-<strong>spyne</strong> are connected using the <code>backend</code>
-network, and iSpy is connected using the <code>frontend</code>
-network)</p>
+<p><strong>-d</strong>: run the containers in detached mode <br></p>
 <p>For more information about the docker-compose syntax, see <a href="https://docs.docker.com/engine/reference/commandline/compose_up/" class="external-link">docker-compose
 up reference</a></p>
 </div>
-<div class="section level5">
-<h5 id="to-check-if-the-services-are-started-sucessfully">(3) To check if the services are started sucessfully<a class="anchor" aria-label="anchor" href="#to-check-if-the-services-are-started-sucessfully"></a>
-</h5>
+<div class="section level3">
+<h3 id="to-check-if-the-services-are-started-sucessfully">(7) To check if the services are started sucessfully<a class="anchor" aria-label="anchor" href="#to-check-if-the-services-are-started-sucessfully"></a>
+</h3>
 <pre><code>docker-compose ps
 </code></pre>
 </div>
-<div class="section level5">
-<h5 id="access-the-ispy-dashboard-on-the-host-network">(4) Access the <code>iSpy</code> dashboard on the host network<a class="anchor" aria-label="anchor" href="#access-the-ispy-dashboard-on-the-host-network"></a>
-</h5>
+<div class="section level3">
+<h3 id="access-the-ispy-dashboard-on-the-host-network">(8) Access the <code>iSpy</code> dashboard on the host network<a class="anchor" aria-label="anchor" href="#access-the-ispy-dashboard-on-the-host-network"></a>
+</h3>
 <p>You can visit the local host using your preferred web browser, type
-in <a href="http://localhost:8080" class="external-link uri">http://localhost:8080</a>, and check if the dashboard is
+in <a href="http://localhost:8010" class="external-link uri">http://localhost:8010</a>, and check if the dashboard is
 indeed hosted there.</p>
 </div>
 </div>
-<div class="section level4">
-<h4 id="production-version">Production Version<a class="anchor" aria-label="anchor" href="#production-version"></a>
-</h4>
-<p>This version assumes that you do not have access to the code base of
-<code>spyne</code> and <code>iSpy</code> but is using its latest
-containerized version.</p>
-<div class="section level5">
-<h5 id="clone-this-respitory-1">(1) Clone this respitory<a class="anchor" aria-label="anchor" href="#clone-this-respitory-1"></a>
-</h5>
-<pre><code>git clone https://git.biotech.cdc.gov/nbx0/iSpy.git</code></pre>
+<div class="section level2">
+<h2 id="production-version-of-ispy">Production version of iSpy<a class="anchor" aria-label="anchor" href="#production-version-of-ispy"></a>
+</h2>
+<p>This version <strong>ONLY</strong> allows you to mount the data files
+that are needed to run <strong>IRMA</strong>,
+<strong>DAIS-Ribosome</strong>, <strong>spyne</strong>, and
+<strong>iSpy</strong> containers. In other words, you do not have access
+to their code base but is using their latest containerized version of
+the code.</p>
+<div class="section level3">
+<h3 id="clone-irma-spy-testdata-respitory-1">(1) Clone irma-spy-testdata respitory<a class="anchor" aria-label="anchor" href="#clone-irma-spy-testdata-respitory-1"></a>
+</h3>
+<pre><code>git clone https://git.biotech.cdc.gov/nbx0/irma-spy-testdata.git</code></pre>
 </div>
-<div class="section level5">
-<h5 id="cd-to-ispy-folder-where-docker-compose-quay-yml-file-is-stored-and-build-all-of-the-services-listed-in-that-yaml-file">(2) CD to <code>iSpy</code> folder where
-<code>docker-compose-quay.yml</code> file is stored and build all of the
-services listed in that yaml file<a class="anchor" aria-label="anchor" href="#cd-to-ispy-folder-where-docker-compose-quay-yml-file-is-stored-and-build-all-of-the-services-listed-in-that-yaml-file"></a>
-</h5>
+<div class="section level3">
+<h3 id="extract-test-data-for-running-ispy">(2) Extract test data for running iSpy<a class="anchor" aria-label="anchor" href="#extract-test-data-for-running-ispy"></a>
+</h3>
+<ul>
+<li>CD to <code>irma-spy-testdata</code> folder where
+<code>data.tar.gz</code> file is stored and extract “runs” from the tar
+archive.</li>
+</ul>
+<pre><code>[ $( which pigz) ] &amp;&amp;\
+    time tar --use-compress-program="pigz -p$(nproc)" -xf data.tar.gz ||\
+    tar -xf data.tar.gz</code></pre>
+</div>
+<div class="section level3">
+<h3 id="cd-to-ispy-folder-where-docker-compose-quay-yml-is-stored-and-edit-the-yaml-file-to-link-the-data-inputs-to-appropriate-containers">(3) CD to <code>iSpy</code> folder where
+<code>docker-compose-quay.yml</code> is stored and edit the yaml file to
+link the data inputs to appropriate containers<a class="anchor" aria-label="anchor" href="#cd-to-ispy-folder-where-docker-compose-quay-yml-is-stored-and-edit-the-yaml-file-to-link-the-data-inputs-to-appropriate-containers"></a>
+</h3>
+<ul>
+<li>Mount data directory to <code>/data</code> directory inside of all
+containers: change <code>/path/to/data</code> to your
+<code>irma-spy-testdata</code> directory</li>
+</ul>
+<pre><code>version: "3.9"
+
+x-dais-version:
+  &amp;dais-version 
+  public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1
+
+x-irma-version:
+  &amp;irma-version 
+  public.ecr.aws/n3z8t4o2/irma:1.0.2p3
+
+x-spyne-version:
+  &amp;spyne-version 
+  quay.io/nbx0_cdc/spyne:v1.1.0
+
+x-ispy-version:
+  &amp;ispy-version 
+  quay.io/nbx0_cdc/ispy:v1.1.0
+
+x-data-volumes:
+  &amp;data-volume
+  type: bind
+  source: /path/to/data
+  target: /data
+
+x-docker-volumes:
+  &amp;docker-socket
+  type: bind
+  source: /var/run/docker.sock 
+  target: /var/run/docker.sock </code></pre>
+</div>
+<div class="section level3">
+<h3 id="start-all-services-listed-in-the-docker-compose-yml-file-1">(4) Start all services listed in the docker-compose.yml file<a class="anchor" aria-label="anchor" href="#start-all-services-listed-in-the-docker-compose-yml-file-1"></a>
+</h3>
 <pre><code>docker-compose up -d </code></pre>
-<p><strong>-d</strong>: run the container in detached mode <br></p>
+<p><strong>-d</strong>: run the containers in detached mode <br></p>
+<p>For more information about the docker-compose syntax, see <a href="https://docs.docker.com/engine/reference/commandline/compose_up/" class="external-link">docker-compose
+up reference</a></p>
 </div>
-<div class="section level5">
-<h5 id="to-check-if-the-services-are-started-sucessfully-1">(3) To check if the services are started sucessfully<a class="anchor" aria-label="anchor" href="#to-check-if-the-services-are-started-sucessfully-1"></a>
-</h5>
+<div class="section level3">
+<h3 id="to-check-if-the-services-are-started-sucessfully-1">(5) To check if the services are started sucessfully<a class="anchor" aria-label="anchor" href="#to-check-if-the-services-are-started-sucessfully-1"></a>
+</h3>
 <pre><code>docker-compose ps
 </code></pre>
 </div>
-<div class="section level5">
-<h5 id="access-the-ispy-dashboard-on-the-host-network-1">(4) Access the <code>iSpy</code> dashboard on the host network<a class="anchor" aria-label="anchor" href="#access-the-ispy-dashboard-on-the-host-network-1"></a>
-</h5>
+<div class="section level3">
+<h3 id="access-the-ispy-dashboard-on-the-host-network-1">(6) Access the <code>iSpy</code> dashboard on the host network<a class="anchor" aria-label="anchor" href="#access-the-ispy-dashboard-on-the-host-network-1"></a>
+</h3>
 <p>You can visit the local host using your preferred web browser, type
-in <a href="http://localhost:8080" class="external-link uri">http://localhost:8080</a>, and check if the dashboard is
+in <a href="http://localhost:8020" class="external-link uri">http://localhost:8020</a>, and check if the dashboard is
 indeed hosted there.</p>
+<p><strong>NOTE:</strong> Here we are publishing the <code>iSpy</code>
+dashboard on port <strong>8020</strong> on the host machine. This port
+is different from the <strong>development</strong> version which was
+previously launched on port <strong>8010</strong>.</p>
 </div>
 </div>
+<div class="section level2">
+<h2 id="run-genome-assembly-with-ispy">Run genome assembly with iSpy<a class="anchor" aria-label="anchor" href="#run-genome-assembly-with-ispy"></a>
+</h2>
+<p>See <a href="running-ispy.html">NGS Training: Running Genome Assembly
+with iSpy</a></p>
+</div>
+<div class="section level2">
+<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h2>
+<p>See <a href="FAQs.html#how-to-start-restart-stop-or-remove-services-listed-in-docker-compose-yml">FAQs
+Guide on how to upgrade and remove older versions of iSpy using
+docker-compose</a></p>
 </div>
   </div>
 

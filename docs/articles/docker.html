@@ -50,7 +50,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/docker.html">Containing iSpy</a>
+      <a href="../articles/docker.html">Containerizing iSpy with Docker</a>
     </li>
     <li>
       <a href="../articles/docker-compose.html">Running iSpy with Docker-Compose</a>
@@ -76,7 +76,7 @@
   </ul>
 </li>
 <li>
-  <a href="../articles/help.html">Help</a>
+  <a href="../articles/FAQs.html">FAQs</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -113,95 +113,140 @@
     
     
 <div class="section level2">
-<h2 id="dockerize-ispy">Dockerize iSpy<a class="anchor" aria-label="anchor" href="#dockerize-ispy"></a>
+<h2 id="containerizing-ispy-with-docker">Containerizing iSpy with Docker<a class="anchor" aria-label="anchor" href="#containerizing-ispy-with-docker"></a>
 </h2>
-<p>There are two versions of the docker images:</p>
+<p>There are two versions of docker images for iSpy:</p>
 <ul>
 <li>
-<a href="#development-version">Development</a><br>
-</li>
-<li><a href="#production-version">Production</a></li>
-</ul>
-<div class="section level3">
-<h3 id="software-requirements">Software Requirements<a class="anchor" aria-label="anchor" href="#software-requirements"></a>
-</h3>
-<ul>
-<li>Docker version &gt;= 18</li>
-<li>Git version &gt;= 2.21.0</li>
+<a href="#development-version">Development version</a> for
+continuous integration of the application</li>
+<li>
+<a href="#production-version">Production version</a> for deployment
+of the application</li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="container-dependencies">Container Dependencies<a class="anchor" aria-label="anchor" href="#container-dependencies"></a>
-</h3>
+<div class="section level2">
+<h2 id="software-requirements">Software requirements<a class="anchor" aria-label="anchor" href="#software-requirements"></a>
+</h2>
 <ul>
-<li>spyne (see <a href="https://github.com/nbx0/spyne" class="external-link">our Gitlab
-repo</a>)</li>
+<li>Docker version &gt;= 20.10</li>
+<li>Git version &gt;= 2.21</li>
 </ul>
-<p><strong>NOTE:</strong> make sure spyne container is up and running
-and its data mount are the same as the one that is used for running iSpy
+</div>
+<div class="section level2">
+<h2 id="container-dependencies">Container dependencies<a class="anchor" aria-label="anchor" href="#container-dependencies"></a>
+</h2>
+<ul>
+<li>IRMA (stored in <a href="https://gallery.ecr.aws/n3z8t4o2/irma" class="external-link">AWS’s ECR</a>)</li>
+<li>Dais-Ribosome (stored in <a href="https://gallery.ecr.aws/n3z8t4o2/dais-ribosome" class="external-link">AWS’s
+ECR</a>)</li>
+<li>spyne (stored in <a href="https://gallery.ecr.aws/n3z8t4o2/irma" class="external-link">quay.io’s respitory</a>,
+also see <a href="https://github.com/nbx0/spyne" class="external-link">our Github repo</a> for
+more details about the usage of the application)</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="setting-up-containers">Setting up containers<a class="anchor" aria-label="anchor" href="#setting-up-containers"></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>Pull down <strong>IRMA</strong>, <strong>Dais-Ribosome</strong>, and
+<strong>spyne</strong> docker images</li>
+</ol>
+<p>IRMA version 1.0.2p3:</p>
+<pre><code>docker pull public.ecr.aws/n3z8t4o2/irma:1.0.2p3</code></pre>
+<p>Dias-Ribosome version 1.2.1:</p>
+<pre><code>docker pull public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1</code></pre>
+<p>spyne version 1.1.0:</p>
+<pre><code>docker pull quay.io/nbx0_cdc/spyne:v1.1.0</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Run IRMA, Dais-Ribosome, and spyne containers</li>
+</ol>
+<p>IRMA:</p>
+<pre><code>docker run -v /path/to/data:/data --name irma -t -d public.ecr.aws/n3z8t4o2/irma:1.0.2p3</code></pre>
+<p>Dais-Ribosome:</p>
+<pre><code>docker run -v /path/to/data:/data --name dais-ribosome -t -d public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1</code></pre>
+<p>spyne:</p>
+<pre><code>docker run -v /path/to/data:/data --name spyne -t -d quay.io/nbx0_cdc/spyne:v1.1.0</code></pre>
+<p><strong>-v</strong>: mount host data directory to
+<strong>/data</strong> directory inside the container <br><strong>-t</strong>: allocate a pseudo-tty <br><strong>-d</strong>: run
+the container in detached mode <br></p>
+<p><strong>Important Note:</strong> make sure
+<strong>/path/to/data</strong> are the same for all containers. This
+directory is mounted to <strong>/data</strong> directory inside the
 container.</p>
 </div>
-<div class="section level3">
-<h3 id="development-version">Development Version<a class="anchor" aria-label="anchor" href="#development-version"></a>
-</h3>
+<div class="section level2">
+<h2 id="development-version-of-ispy">Development version of iSpy<a class="anchor" aria-label="anchor" href="#development-version-of-ispy"></a>
+</h2>
 <p>This version allows you to mount the code base that is needed to
 develop the <code>iSpy</code> dashboard. Any updates or changes to the
 code will automatically reflects the changes inside the Docker
 container. This allows continuous integration (CI) of the
 application.</p>
-<div class="section level4">
-<h4 id="clone-this-respitory">(1) Clone this respitory<a class="anchor" aria-label="anchor" href="#clone-this-respitory"></a>
-</h4>
+<div class="section level3">
+<h3 id="clone-this-respitory">(1) Clone this respitory<a class="anchor" aria-label="anchor" href="#clone-this-respitory"></a>
+</h3>
 <pre><code>git clone https://git.biotech.cdc.gov/nbx0/iSpy.git</code></pre>
 </div>
-<div class="section level4">
-<h4 id="cd-to-ispy-folder-where-dockerfile-file-is-stored-and-build-the-docker-image-">(2) CD to <code>iSpy</code> folder where <code>Dockerfile</code>
+<div class="section level3">
+<h3 id="cd-to-ispy-folder-where-dockerfile-file-is-stored-and-build-the-docker-image-">(2) CD to <code>iSpy</code> folder where <code>Dockerfile</code>
 file is stored and build the docker image.<a class="anchor" aria-label="anchor" href="#cd-to-ispy-folder-where-dockerfile-file-is-stored-and-build-the-docker-image-"></a>
-</h4>
+</h3>
 <p><strong>NOTE:</strong> <code>Dockerfile</code> contains a list of
-instructions and steps of how to build and run the <code>iSpy</code>
+instructions and steps of how to build and deploy the <code>iSpy</code>
 dashboard.</p>
 <ul>
-<li>Build the docker image with a build-arg, BUILD_STAGE=dev</li>
+<li>Build the docker image using a <code>build-arg</code> flag and
+setting <code>BUILD_STAGE=dev</code> for development stage</li>
 </ul>
 <pre><code>docker build -t iSpy-dev:v1.0.0 --build-arg BUILD_STAGE=dev .</code></pre>
 <p>or</p>
 <ul>
-<li>Build the docker image with a specific dockerfile for development
-stage (e.g. <code>Dockerfile.dev</code>)</li>
+<li>Build the docker image with a specific dockerfile for the
+development stage (e.g. <code>Dockerfile.dev</code>)</li>
 </ul>
 <pre><code>docker build -t iSpy-dev:v1.0.0 -f Dockerfile.dev .</code></pre>
 <p><strong>-t</strong>: add a tag to an image such as the version of the
 application, e.g. <em>iSpy-dev:v1.0.0</em> or <em>iSpy-dev:latest</em>
 <br><strong><code>--</code>file, -f</strong>: name of the Dockerfile
 <br><strong><code>--</code>build-arg</strong>: set the build stage for
-the docker image. In this case, we want to build the
-<strong>development</strong> stage. <br></p>
-<p><em>The image took approximately &lt; 10 mins to build</em></p>
+the docker image using the <code>BUILD_STAGE</code> argument. Options
+are <strong>dev</strong> or <strong>prod</strong>. Default is
+<code>prod</code>.</p>
+<p><strong>NOTE:</strong> <em>The image took approximately &lt; 10 mins
+to build</em></p>
 </div>
-<div class="section level4">
-<h4 id="after-the-build-is-completed-you-can-check-if-the-image-is-built-successfully">(3) After the build is completed, you can check if the image is
+<div class="section level3">
+<h3 id="after-the-build-is-completed-you-can-check-if-the-image-is-built-successfully">(3) After the build is completed, you can check if the image is
 built successfully<a class="anchor" aria-label="anchor" href="#after-the-build-is-completed-you-can-check-if-the-image-is-built-successfully"></a>
-</h4>
+</h3>
 <pre><code>docker images
 
 REPOSITORY        TAG        IMAGE ID        CREATED        SIZE
 iSpy-dev          v1.0.0     2c22887402d3    2 hours ago    1.63GB</code></pre>
 </div>
-<div class="section level4">
-<h4 id="to-run-the-ispy-dev-container">(4) To run the <code>iSpy-dev</code> container<a class="anchor" aria-label="anchor" href="#to-run-the-ispy-dev-container"></a>
-</h4>
+<div class="section level3">
+<h3 id="to-run-the-ispy-dev-container">(4) To run the <code>iSpy-dev</code> container<a class="anchor" aria-label="anchor" href="#to-run-the-ispy-dev-container"></a>
+</h3>
 <pre><code>docker run -v /path/to/data:/data -v /path/to/iSpy:/iSpy -v /var/run/docker.sock:/var/run/docker.sock -d -p 8080:8050 --name iSpy-dev iSpy-dev:v1.0.0 </code></pre>
-<p><strong>NOTE:</strong> - Change <strong>/path/to/data</strong> to
-your local directory where it contains all data files needed to feed
-into the <code>iSpy</code> dashboard. This directory is mounted to
-<code>/data</code> directory inside the container. <br> - Change
-<strong>/path/to/iSpy</strong> to your local <code>iSpy</code>
-directory. This directory must contain all of the code base needed to
-build the <code>iSpy</code> dashboard. <br> -
-<strong>/var/run/docker.sock:/var/run/docker.sock</strong> is used to
-connect the host’s docker.socket to container’s docker.socket where you
-can run a container inside of another container. <br></p>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>Change <strong>/path/to/data</strong> to your local directory where
+it contains all data files needed to pass to the <code>iSpy</code>
+dashboard. This directory is mounted to <strong>/data</strong> directory
+inside the container. Make sure <strong>/path/to/data</strong> are the
+same as other previous containers. <br>
+</li>
+<li>Change <strong>/path/to/iSpy</strong> to your local
+<code>iSpy</code> directory. This directory must contain all of the code
+base needed to build the <code>iSpy</code> dashboard. <br>
+</li>
+<li>
+<strong>/var/run/docker.sock:/var/run/docker.sock</strong> is used
+to connect the host’s docker.socket to container’s docker.socket where
+you can run a container inside of another container. <br>
+</li>
+</ul>
 <p><strong>-d</strong>: run the container in detached mode <br><strong>-v</strong>: mount code base and data files from host directory
 to container directory <strong>[host_div]:[container_dir]</strong>. By
 exposing the host directory to docker container, docker will be able to
@@ -214,9 +259,9 @@ the host port will be redirected to the Docker container
 <p>For more information about the Docker syntax, see <a href="https://docs.docker.com/engine/reference/run/" class="external-link">Docker run
 reference</a></p>
 </div>
-<div class="section level4">
-<h4 id="to-check-if-the-container-is-built-sucessfully">(5) To check if the container is built sucessfully<a class="anchor" aria-label="anchor" href="#to-check-if-the-container-is-built-sucessfully"></a>
-</h4>
+<div class="section level3">
+<h3 id="to-check-if-the-container-is-built-sucessfully">(5) To check if the container is built sucessfully<a class="anchor" aria-label="anchor" href="#to-check-if-the-container-is-built-sucessfully"></a>
+</h3>
 <pre><code>docker container ps
 
 
@@ -229,33 +274,34 @@ published on port <strong>8080</strong> on the host machine, and
 published inside the container. All the requests that are made to the
 host port will be redirected to the Docker container.</p>
 </div>
-<div class="section level4">
-<h4 id="access-the-ispy-dashboard-on-the-host-network">(6) Access the <code>iSpy</code> dashboard on the host network<a class="anchor" aria-label="anchor" href="#access-the-ispy-dashboard-on-the-host-network"></a>
-</h4>
+<div class="section level3">
+<h3 id="access-the-ispy-dashboard-on-the-host-network">(6) Access the <code>iSpy</code> dashboard on the host network<a class="anchor" aria-label="anchor" href="#access-the-ispy-dashboard-on-the-host-network"></a>
+</h3>
 <p>You can visit the local host using your preferred web browser, type
 in <a href="http://localhost:8080" class="external-link uri">http://localhost:8080</a>, and check if the dashboard is
 indeed hosted there.</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="production-version">Production Version<a class="anchor" aria-label="anchor" href="#production-version"></a>
-</h3>
+<div class="section level2">
+<h2 id="production-version-of-ispy">Production version of iSpy<a class="anchor" aria-label="anchor" href="#production-version-of-ispy"></a>
+</h2>
 <p>This version <strong>ONLY</strong> allows you to mount the data files
-that are needed to feed into the <code>iSpy</code> dashboard. In other
-words, this version assumes that you do not have access to the code base
-of <code>iSpy</code> but is using its latest containerized version.</p>
-<div class="section level4">
-<h4 id="clone-this-respitory-1">(1) Clone this respitory<a class="anchor" aria-label="anchor" href="#clone-this-respitory-1"></a>
-</h4>
+that are needed to populate the <code>iSpy</code> dashboard. In other
+words, you do not have access to the code base of <code>iSpy</code> but
+is using its latest containerized version of the code.</p>
+<div class="section level3">
+<h3 id="clone-this-respitory-1">(1) Clone this respitory<a class="anchor" aria-label="anchor" href="#clone-this-respitory-1"></a>
+</h3>
 <pre><code>git clone https://git.biotech.cdc.gov/nbx0/iSpy.git</code></pre>
 </div>
-<div class="section level4">
-<h4 id="cd-to-ispy-folder-where-dockerfile-file-is-stored-and-build-the-docker-image--1">(2) CD to <code>iSpy</code> folder where <code>Dockerfile</code>
+<div class="section level3">
+<h3 id="cd-to-ispy-folder-where-dockerfile-file-is-stored-and-build-the-docker-image--1">(2) CD to <code>iSpy</code> folder where <code>Dockerfile</code>
 file is stored and build the docker image.<a class="anchor" aria-label="anchor" href="#cd-to-ispy-folder-where-dockerfile-file-is-stored-and-build-the-docker-image--1"></a>
-</h4>
+</h3>
 <ul>
-<li>Build the docker image with a build-arg, BUILD_STAGE=prod (by
-DEFAULT)</li>
+<li>Since the image is built with the <code>prod</code> stage by
+DEFAULT, you can omit the <code>build-arg</code> flag during the
+build.</li>
 </ul>
 <pre><code>docker build -t iSpy-prod:v1.0.0 .</code></pre>
 <p>or</p>
@@ -268,28 +314,36 @@ stage (e.g. <code>Dockerfile.prod</code>)</li>
 application, e.g. <em>iSpy-prod:v1.0.0</em> or <em>iSpy-prod:latest</em>
 <br><strong><code>--</code>file, -f</strong>: name of the
 Dockerfile</p>
-<p><em>The image took approximately &lt; 10 mins to build</em></p>
+<p><strong>NOTE:</strong> <em>The image took approximately &lt; 10 mins
+to build</em></p>
 </div>
-<div class="section level4">
-<h4 id="after-the-build-is-completed-you-can-check-if-the-image-is-built-successfully-">(3) After the build is completed, you can check if the image is
+<div class="section level3">
+<h3 id="after-the-build-is-completed-you-can-check-if-the-image-is-built-successfully-">(3) After the build is completed, you can check if the image is
 built successfully.<a class="anchor" aria-label="anchor" href="#after-the-build-is-completed-you-can-check-if-the-image-is-built-successfully-"></a>
-</h4>
+</h3>
 <pre><code>docker images
 
 REPOSITORY        TAG        IMAGE ID        CREATED        SIZE
 iSpy-prod         v1.0.0     6dab1b639b9a    2 hours ago    1.63GB</code></pre>
 </div>
-<div class="section level4">
-<h4 id="to-run-the-ispy-prod-container">(4) To run the <code>iSpy-prod</code> container<a class="anchor" aria-label="anchor" href="#to-run-the-ispy-prod-container"></a>
-</h4>
+<div class="section level3">
+<h3 id="to-run-the-ispy-prod-container">(4) To run the <code>iSpy-prod</code> container<a class="anchor" aria-label="anchor" href="#to-run-the-ispy-prod-container"></a>
+</h3>
 <pre><code>docker run -v /path/to/data:/data -v /var/run/docker.sock:/var/run/docker.sock -d -p 8050:8050 --name iSpy-prod iSpy-prod:v1.0.0 </code></pre>
-<p><strong>NOTE:</strong> - Change <strong>/path/to/data</strong> to
-your local directory where it contains all data files needed to feed
-into the <code>iSpy</code> dashboard. This directory is mounted to
-<code>/data</code> directory inside the container. <br> -
-<strong>/var/run/docker.sock:/var/run/docker.sock</strong> is used to
-connect the host’s docker.socket to container’s docker.socket where you
-can run a container inside of another container<br></p>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>Change <strong>/path/to/data</strong> to your local directory where
+it contains all data files needed to feed into the <code>iSpy</code>
+dashboard. This directory is mounted to ** <strong>/data</strong>
+directory inside the container. Make sure <strong>/path/to/data</strong>
+are the same as other previous containers. <br>
+</li>
+<li>
+<strong>/var/run/docker.sock:/var/run/docker.sock</strong> is used
+to connect the host’s docker.socket to container’s docker.socket where
+you can run a container inside of another container<br>
+</li>
+</ul>
 <p><strong>-d</strong>: run the container in detached mode <br><strong>-v</strong>: mount code base and data files from host directory
 to container directory <strong>[host_div]:[container_dir]</strong>. By
 exposing the host directory to docker container, docker will be able to
@@ -302,29 +356,40 @@ the host port will be redirected to the Docker container
 <p>For more information about the Docker syntax, see <a href="https://docs.docker.com/engine/reference/run/" class="external-link">Docker run
 reference</a></p>
 </div>
-<div class="section level4">
-<h4 id="to-check-if-the-container-is-built-sucessfully-1">(5) To check if the container is built sucessfully<a class="anchor" aria-label="anchor" href="#to-check-if-the-container-is-built-sucessfully-1"></a>
-</h4>
+<div class="section level3">
+<h3 id="to-check-if-the-container-is-built-sucessfully-1">(5) To check if the container is built sucessfully<a class="anchor" aria-label="anchor" href="#to-check-if-the-container-is-built-sucessfully-1"></a>
+</h3>
 <pre><code>docker container ps
 
 
-CONTAINER ID   IMAGE                   COMMAND                     CREATED        STATUS        PORTS                    NAMES
+CONTAINER ID   IMAGE                COMMAND                    CREATED        STATUS        PORTS                    NAMES
 717b0825bc66   iSpy-prod:v1.0.0     "bash dashboard-kickoff"   5 hours ago    Up 5 hours    0.0.0.0:8050-&gt;8050/tcp   iSpy-prod
 </code></pre>
 <p><strong>NOTE:</strong> Here we are publishing the
-<code>iSpy-prod</code> container on port <strong>8050</strong> on the
+<code>iSpy-prod</code> dashboard on port <strong>8050</strong> on the
 host machine. This port is different from the
-<strong>development</strong> version which we previously launched on
+<strong>development</strong> version which was previously launched on
 port <strong>8080</strong>.</p>
 </div>
-<div class="section level4">
-<h4 id="access-the-ispy-dashboard-on-the-host-network-1">(6) Access the <code>iSpy</code> dashboard on the host network<a class="anchor" aria-label="anchor" href="#access-the-ispy-dashboard-on-the-host-network-1"></a>
-</h4>
+<div class="section level3">
+<h3 id="access-the-ispy-dashboard-on-the-host-network-1">(6) Access the <code>iSpy</code> dashboard on the host network<a class="anchor" aria-label="anchor" href="#access-the-ispy-dashboard-on-the-host-network-1"></a>
+</h3>
 <p>You can visit the local host using your preferred web browser, type
 in <a href="http://localhost:8050" class="external-link uri">http://localhost:8050</a>, and check if the dashboard is
 indeed hosted there.</p>
 </div>
 </div>
+<div class="section level2">
+<h2 id="run-genome-assembly-with-ispy">Run genome assembly with iSpy<a class="anchor" aria-label="anchor" href="#run-genome-assembly-with-ispy"></a>
+</h2>
+<p>See <a href="running-ispy.html">NGS Training: Running Genome Assembly
+with iSpy</a></p>
+</div>
+<div class="section level2">
+<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h2>
+<p>See <a href="FAQs.html#how-to-upgrate-or-remove-older-versions-of-ispy-or-other-containers">FAQs
+Guide on how to upgrade and remove older versions of iSpy</a></p>
 </div>
   </div>
 

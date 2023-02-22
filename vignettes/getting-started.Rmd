@@ -1,6 +1,9 @@
 
-# Getting Started
-This NGS training will cover the process of running Influenza genome and SARS-CoV-2 spike-gene assembly and curation. The protocol for this process starts with demultiplexed sequencing reads from an Illumina or Oxford Nanopore Technologies sequencer and finish with high quality genomes ready for submission to public repositories.
+## Getting Started
+
+This NGS training will cover the steps of how to setup and run Influenza genome and SARS-CoV-2 spike-gene assembly and curation using the `iSpy` container. The protocol for this training will start with demultiplexed sequencing reads from an Illumina or Oxford Nanopore Technologies sequencer and finish with high quality genomes ready for submission to public repositories.
+
+![](images/mermaid_flow.png)
 
 ## Computer requirements
 - A minimum of 16GB of memory is required. >=32GB is recommended.
@@ -14,9 +17,11 @@ This NGS training will cover the process of running Influenza genome and SARS-Co
 You can get a full linux environment using Windows Subsystem for Linux, or WSL. The second version of WSL is WSL2 and is the recommended version to use.
 
 1. Check your Windows version and build number, select Windows logo key + R, type winver, select OK.
-2. Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 is required.<br><br>
-   - You can update to the latest Windows version by selecting Start > Settings > Windows Update > Check for updates.
-3. [Run powershell **as administrator**](images/powershell_open.png)
+2. Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 is required.
+
+    - You can update to the latest Windows version by selecting Start > Settings > Windows Update > Check for updates. <br/><br/>
+
+3. <a href="images/powershell_open.png" target="_blank">Run powershell **as administrator**</a>
 4. Run the following command in Powershell:
 
     ```bash
@@ -25,7 +30,7 @@ You can get a full linux environment using Windows Subsystem for Linux, or WSL. 
     
     - if you see a message relating to Virtualization needing to be enabled, follow instructions below to access your machine's BIOS setup:
         - [Windows 11 virtualization instructions](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1)
-        - [Windows 10 virtualization instructions](https://www.geeksforgeeks.org/how-to-enable-virtualization-vt-x-in-windows-10-bios/) <br><br>
+        - [Windows 10 virtualization instructions](https://www.geeksforgeeks.org/how-to-enable-virtualization-vt-x-in-windows-10-bios/) <br/><br/>
         
 5. Restart your computer
 6. Reopen Powershell and enter the following commands:
@@ -46,9 +51,8 @@ You can get a full linux environment using Windows Subsystem for Linux, or WSL. 
 8. Restart your computer.
 
     - To access the Ubuntu terminal in the future, simply search for `Ubuntu` in the <a href="images/ubuntu_open.png" target="_blank">Window's task bar and click on the app.</a> 
-    <br/><br/>
-    Further details can be found on Microsoft's website here: [https://docs.microsoft.com/en-us/windows/wsl/install](https://docs.microsoft.com/en-us/windows/wsl/install)
-    <br/><br/>
+    <br/>
+    Further details can be found on Microsoft's website: [https://docs.microsoft.com/en-us/windows/wsl/install](https://docs.microsoft.com/en-us/windows/wsl/install)
 
 
 ## Map network drive to be able to use Window's File Explorer to see folders and files inside WSL
@@ -60,15 +64,16 @@ You can get a full linux environment using Windows Subsystem for Linux, or WSL. 
 **_Many computers have trouble with this step; the folders are not selectable during this step. First, make sure that an Ubuntu terminal is opened and then open the `File Explorer`. If "Ubuntu" is still not showing up in `File Explorer`, you can try to find the solution here: [https://github.com/microsoft/WSL/issues/3996](https://github.com/microsoft/WSL/issues/3996)._
 
 
-1. Open [File Explorer](images/file_explorer.png)
-    - _If you have a Windows 10 or 11 OS, WSL is likely automatically mapped and visible in the left hand sidebar as "Ubuntu"_ <br><br>
-2. Right click [This PC and click Map network drive](images/map_drive_1.png)
-3. Enter `\\wsl$` into Folder: [and click Browse](images/map_drive_2.png)
-4. Click on `wsl$` to unfold directories, select `Ubuntu-18.04` [and click OK](images/map_drive_3.png) and then `Finish`. You should now see your WSL "drive" available in `File Explorer`:
+1. Open <a href="images/file_explorer.png" target="_blank">File Explorer</a>
+
+    - _If you have a Windows 10 or 11 OS, WSL is likely automatically mapped and visible in the left hand sidebar as "Ubuntu"_ <br/><br/>
+    
+2. Right click <a href="images/map_drive_1.png" target="_blank">This PC and click Map network drive</a>
+3. Enter `\\wsl$` into Folder: <a href="images/map_drive_2.png" target="_blank">and click Browse</a>
+4. Click on `wsl$` to unfold directories, select `Ubuntu-18.04` <a href="images/map_drive_3.png" target="_blank">and click OK</a> and then `Finish`. You should now see your WSL "drive" available in `File Explorer`:
 
     ![](images/map_drive_4.png)
-    
-    
+   
 ## [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
 Docker allows you to run software inside an isolated "container image" on your computer with all of that application's needed dependencies. Make sure to install the version for your operating system.
 
@@ -92,7 +97,7 @@ All following lines of code can be copy/pasted into your terminal. Pasting using
     sudo apt-get remove docker docker-engine docker.io containerd runc
     ```
     
-    - _If you have never installed Docker on your machine, you will see an error message about docker not being found. This is expected and you can move to step 3._ <br><br>
+    - _If you have never installed Docker on your machine, you will see an error message about docker not being found. This is expected and you can move to step 3._ <br/><br/>
     
 3. Tell WSL2 where to look for Docker CLI tools 
 

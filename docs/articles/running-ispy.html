@@ -50,7 +50,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/docker.html">Containing iSpy</a>
+      <a href="../articles/docker.html">Containerizing iSpy with Docker</a>
     </li>
     <li>
       <a href="../articles/docker-compose.html">Running iSpy with Docker-Compose</a>
@@ -76,7 +76,7 @@
   </ul>
 </li>
 <li>
-  <a href="../articles/help.html">Help</a>
+  <a href="../articles/FAQs.html">FAQs</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -115,13 +115,16 @@
 <div class="section level2">
 <h2 id="running-ispy">Running iSpy<a class="anchor" aria-label="anchor" href="#running-ispy"></a>
 </h2>
-<hr>
 <p><img src="images/irma-spy.jpg"></p>
-<p>_**This documentation assumes you have the four required Docker
-containers already running. If not, please start with <a href="#setting-up_containers">setup instructions</a>._</p>
-<div class="section level3">
-<h3 id="stage-your-demultiplexed-data">Stage your demultiplexed data<a class="anchor" aria-label="anchor" href="#stage-your-demultiplexed-data"></a>
-</h3>
+<p><em>This documentation assumes you have the four required Docker
+containers (<strong>IRMA</strong>, <strong>DAIS-Ribosome</strong>,
+<strong>spyne</strong>, and <strong>iSpy</strong>) already running. If
+not, please start with <a href="#setting-up-containers">setting up
+containers</a> instructions.</em></p>
+</div>
+<div class="section level2">
+<h2 id="stage-your-demultiplexed-data">Stage your demultiplexed data<a class="anchor" aria-label="anchor" href="#stage-your-demultiplexed-data"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li>In your “FLU_SC2_SEQUENCING” folder, make a folder for your run. It
 is very helpful to name your runs with a consistent naming system, such
@@ -147,9 +150,9 @@ There will be two fastq files per sample.</li>
 </li>
 </ol>
 </div>
-<div class="section level3">
-<h3 id="run-genome-assembly-with-ispy">Run genome assembly with iSpy<a class="anchor" aria-label="anchor" href="#run-genome-assembly-with-ispy"></a>
-</h3>
+<div class="section level2">
+<h2 id="run-genome-assembly-with-ispy">Run genome assembly with iSpy<a class="anchor" aria-label="anchor" href="#run-genome-assembly-with-ispy"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li>
 <p>Open Docker Desktop and navigate to the <code>Containers</code>
@@ -227,9 +230,9 @@ need to <em>refresh</em> the webpage.</p>
 </li>
 </ol>
 </div>
-<div class="section level3">
-<h3 id="review-irma-results">Review IRMA results<a class="anchor" aria-label="anchor" href="#review-irma-results"></a>
-</h3>
+<div class="section level2">
+<h2 id="review-irma-results">Review IRMA results<a class="anchor" aria-label="anchor" href="#review-irma-results"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li>
 <p>Review the distribution of reads assigned to each barcode. The
@@ -291,9 +294,9 @@ sheets for further analyses.</p>
 </li>
 </ol>
 </div>
-<div class="section level3">
-<h3 id="save-your-sequence-fasta">Save your sequence fasta<a class="anchor" aria-label="anchor" href="#save-your-sequence-fasta"></a>
-</h3>
+<div class="section level2">
+<h2 id="save-your-sequence-fasta">Save your sequence fasta<a class="anchor" aria-label="anchor" href="#save-your-sequence-fasta"></a>
+</h2>
 <ul>
 <li>
 <p>Export IRMA’s <em>amended consensus</em> nucleotide sequences and
@@ -303,22 +306,27 @@ criteria and are ready for submission to public databases!</p>
 </li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="gisaid-httpsgisaid-org">GISAID: <a href="https://gisaid.org/" class="external-link">https://gisaid.org/</a><a class="anchor" aria-label="anchor" href="#gisaid-httpsgisaid-org"></a>
-</h3>
+<div class="section level2">
+<h2 id="gisaid-httpsgisaid-org">GISAID: <a href="https://gisaid.org/" class="external-link">https://gisaid.org/</a><a class="anchor" aria-label="anchor" href="#gisaid-httpsgisaid-org"></a>
+</h2>
 </div>
-<div class="section level3">
-<h3 id="ncbi-genbank-httpswww-ncbi-nlm-nih-govgenbank">NCBI-Genbank: <a href="https://www.ncbi.nlm.nih.gov/genbank/" class="external-link">https://www.ncbi.nlm.nih.gov/genbank/</a><a class="anchor" aria-label="anchor" href="#ncbi-genbank-httpswww-ncbi-nlm-nih-govgenbank"></a>
-</h3>
+<div class="section level2">
+<h2 id="ncbi-genbank-httpswww-ncbi-nlm-nih-govgenbank">NCBI-Genbank: <a href="https://www.ncbi.nlm.nih.gov/genbank/" class="external-link">https://www.ncbi.nlm.nih.gov/genbank/</a><a class="anchor" aria-label="anchor" href="#ncbi-genbank-httpswww-ncbi-nlm-nih-govgenbank"></a>
+</h2>
 </div>
-<div class="section level3">
-<h3 id="ncbi-blast-httpsblast-ncbi-nlm-nih-govblast-cgi">NCBI-BLAST: <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="external-link">https://blast.ncbi.nlm.nih.gov/Blast.cgi</a><a class="anchor" aria-label="anchor" href="#ncbi-blast-httpsblast-ncbi-nlm-nih-govblast-cgi"></a>
-</h3>
+<div class="section level2">
+<h2 id="ncbi-blast-httpsblast-ncbi-nlm-nih-govblast-cgi">NCBI-BLAST: <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="external-link">https://blast.ncbi.nlm.nih.gov/Blast.cgi</a><a class="anchor" aria-label="anchor" href="#ncbi-blast-httpsblast-ncbi-nlm-nih-govblast-cgi"></a>
+</h2>
 </div>
-<div class="section level3">
-<h3 id="nextclade-httpsclades-nextstrain-org">Nextclade: <a href="https://clades.nextstrain.org/" class="external-link">https://clades.nextstrain.org/</a><a class="anchor" aria-label="anchor" href="#nextclade-httpsclades-nextstrain-org"></a>
-</h3>
+<div class="section level2">
+<h2 id="nextclade-httpsclades-nextstrain-org">Nextclade: <a href="https://clades.nextstrain.org/" class="external-link">https://clades.nextstrain.org/</a><a class="anchor" aria-label="anchor" href="#nextclade-httpsclades-nextstrain-org"></a>
+</h2>
 </div>
+<div class="section level2">
+<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h2>
+<p>See <a href="FAQs.html#how-to-upgrate-or-remove-older-versions-of-ispy-or-other-containers">FAQs
+Guide on how to upgrade and remove older versions of iSpy</a></p>
 </div>
   </div>
 

@@ -1,11 +1,9 @@
 
-# Running iSpy
-
-<hr>
+## Running iSpy
 
 ![](images/irma-spy.jpg)
 
- _**This documentation assumes you have the four required Docker containers already running. If not, please start with [setup instructions](#setting-up_containers)._
+_This documentation assumes you have the four required Docker containers (**IRMA**, **DAIS-Ribosome**, **spyne**, and **iSpy**) already running. If not, please start with [setting up containers](#setting-up-containers) instructions._
 
 ## Stage your demultiplexed data
 1. In your "FLU_SC2_SEQUENCING" folder, make a folder for your run. It is very helpful to name your runs with a consistent naming system, such as "YEAR-MONTH-DATE-FLOWCELL_ID", ie. 2022-11-13-ABC1234. **_DO NOT PUT SPACES OR SLASHES IN YOU RUN FOLDER NAMES!_**
@@ -88,5 +86,6 @@
 ## NCBI-BLAST: [https://blast.ncbi.nlm.nih.gov/Blast.cgi](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
 ## Nextclade: [https://clades.nextstrain.org/](https://clades.nextstrain.org/)
 
+## Getting help
 
-
+See [FAQs Guide on how to upgrade and remove older versions of iSpy](FAQs.html#how-to-upgrate-or-remove-older-versions-of-ispy-or-other-containers)

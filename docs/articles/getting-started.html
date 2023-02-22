@@ -50,7 +50,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/docker.html">Containing iSpy</a>
+      <a href="../articles/docker.html">Containerizing iSpy with Docker</a>
     </li>
     <li>
       <a href="../articles/docker-compose.html">Running iSpy with Docker-Compose</a>
@@ -76,7 +76,7 @@
   </ul>
 </li>
 <li>
-  <a href="../articles/help.html">Help</a>
+  <a href="../articles/FAQs.html">FAQs</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -115,14 +115,17 @@
 <div class="section level2">
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>This NGS training will cover the process of running Influenza genome
-and SARS-CoV-2 spike-gene assembly and curation. The protocol for this
-process starts with demultiplexed sequencing reads from an Illumina or
-Oxford Nanopore Technologies sequencer and finish with high quality
-genomes ready for submission to public repositories.</p>
-<div class="section level3">
-<h3 id="computer-requirements">Computer requirements<a class="anchor" aria-label="anchor" href="#computer-requirements"></a>
-</h3>
+<p>This NGS training will cover the steps of how to setup and run
+Influenza genome and SARS-CoV-2 spike-gene assembly and curation using
+the <code>iSpy</code> container. The protocol for this training will
+start with demultiplexed sequencing reads from an Illumina or Oxford
+Nanopore Technologies sequencer and finish with high quality genomes
+ready for submission to public repositories.</p>
+<p><img src="images/mermaid_flow.png"></p>
+</div>
+<div class="section level2">
+<h2 id="computer-requirements">Computer requirements<a class="anchor" aria-label="anchor" href="#computer-requirements"></a>
+</h2>
 <ul>
 <li>A minimum of 16GB of memory is required. &gt;=32GB is
 recommended.</li>
@@ -141,9 +144,9 @@ installing Docker</a>
 </li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="how-to-install-linux-on-a-windows-1011-computer">How to install linux on a Windows 10/11 computer<a class="anchor" aria-label="anchor" href="#how-to-install-linux-on-a-windows-1011-computer"></a>
-</h3>
+<div class="section level2">
+<h2 id="how-to-install-linux-on-a-windows-1011-computer">How to install linux on a Windows 10/11 computer<a class="anchor" aria-label="anchor" href="#how-to-install-linux-on-a-windows-1011-computer"></a>
+</h2>
 <p>You can get a full linux environment using Windows Subsystem for
 Linux, or WSL. The second version of WSL is WSL2 and is the recommended
 version to use.</p>
@@ -152,14 +155,15 @@ version to use.</p>
 key + R, type winver, select OK.</p></li>
 <li>
 <p>Windows 10 version 2004 and higher (Build 19041 and higher) or
-Windows 11 is required.<br><br></p>
+Windows 11 is required.</p>
 <ul>
 <li>You can update to the latest Windows version by selecting Start &gt;
-Settings &gt; Windows Update &gt; Check for updates.</li>
+Settings &gt; Windows Update &gt; Check for updates. <br><br>
+</li>
 </ul>
 </li>
-<li><p><a href="images/powershell_open.png">Run powershell <strong>as
-administrator</strong></a></p></li>
+<li><p><a href="images/powershell_open.png" target="_blank">Run
+powershell <strong>as administrator</strong></a></p></li>
 <li>
 <p>Run the following command in Powershell:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">wsl</span> <span class="at">--install</span></span></code></pre></div>
@@ -200,18 +204,17 @@ computer’s name.</p>
 <li>To access the Ubuntu terminal in the future, simply search for
 <code>Ubuntu</code> in the
 <a href="images/ubuntu_open.png" target="_blank">Window’s task bar and
-click on the app.</a> <br><br> Further details can be found on
-Microsoft’s website here: <a href="https://docs.microsoft.com/en-us/windows/wsl/install" class="external-link">https://docs.microsoft.com/en-us/windows/wsl/install</a>
-<br><br>
+click on the app.</a> <br> Further details can be found on Microsoft’s
+website: <a href="https://docs.microsoft.com/en-us/windows/wsl/install" class="external-link">https://docs.microsoft.com/en-us/windows/wsl/install</a>
 </li>
 </ul>
 </li>
 </ol>
 </div>
-<div class="section level3">
-<h3 id="map-network-drive-to-be-able-to-use-windows-file-explorer-to-see-folders-and-files-inside-wsl">Map network drive to be able to use Window’s File Explorer to see
+<div class="section level2">
+<h2 id="map-network-drive-to-be-able-to-use-windows-file-explorer-to-see-folders-and-files-inside-wsl">Map network drive to be able to use Window’s File Explorer to see
 folders and files inside WSL<a class="anchor" aria-label="anchor" href="#map-network-drive-to-be-able-to-use-windows-file-explorer-to-see-folders-and-files-inside-wsl"></a>
-</h3>
+</h2>
 <p>**<em>Windows 11 and updated versions of Windows 10 should
 automatically mount Linux. If you have “Linux” in your
 <code>File Explorer</code>, you are good to go and do not need to
@@ -224,7 +227,8 @@ still not showing up in <code>File Explorer</code>, you can try to find
 the solution here: <a href="https://github.com/microsoft/WSL/issues/3996" class="external-link">https://github.com/microsoft/WSL/issues/3996</a>.</em></p>
 <ol style="list-style-type: decimal">
 <li>
-<p>Open <a href="images/file_explorer.png">File Explorer</a></p>
+<p>Open <a href="images/file_explorer.png" target="_blank">File
+Explorer</a></p>
 <ul>
 <li>
 <em>If you have a Windows 10 or 11 OS, WSL is likely automatically
@@ -233,23 +237,26 @@ mapped and visible in the left hand sidebar as “Ubuntu”</em>
 </li>
 </ul>
 </li>
-<li><p>Right click <a href="images/map_drive_1.png">This PC and click
-Map network drive</a></p></li>
-<li><p>Enter <code>\\wsl$</code> into Folder: <a href="images/map_drive_2.png">and click Browse</a></p></li>
+<li><p>Right click <a href="images/map_drive_1.png" target="_blank">This
+PC and click Map network drive</a></p></li>
+<li><p>Enter <code>\\wsl$</code> into Folder:
+<a href="images/map_drive_2.png" target="_blank">and click
+Browse</a></p></li>
 <li>
 <p>Click on <code>wsl$</code> to unfold directories, select
-<code>Ubuntu-18.04</code> <a href="images/map_drive_3.png">and click
-OK</a> and then <code>Finish</code>. You should now see your WSL “drive”
-available in <code>File Explorer</code>:</p>
+<code>Ubuntu-18.04</code>
+<a href="images/map_drive_3.png" target="_blank">and click OK</a> and
+then <code>Finish</code>. You should now see your WSL “drive” available
+in <code>File Explorer</code>:</p>
 <p><img src="images/map_drive_4.png"></p>
 </li>
 </ol>
 </div>
-<div class="section level3">
-<h3 id="install-docker-desktop">
+<div class="section level2">
+<h2 id="install-docker-desktop">
 <a href="https://www.docker.com/products/docker-desktop/" class="external-link">Install
 Docker Desktop</a><a class="anchor" aria-label="anchor" href="#install-docker-desktop"></a>
-</h3>
+</h2>
 <p>Docker allows you to run software inside an isolated “container
 image” on your computer with all of that application’s needed
 dependencies. Make sure to install the version for your operating
@@ -270,11 +277,11 @@ username <img src="images/dockerusers.png">
 </li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="install-docker-cli-command-line-interface-in-wsl2">
+<div class="section level2">
+<h2 id="install-docker-cli-command-line-interface-in-wsl2">
 <a href="https://docs.docker.com/engine/install/ubuntu/" class="external-link">Install
 Docker CLI (Command Line Interface) in WSL2</a><a class="anchor" aria-label="anchor" href="#install-docker-cli-command-line-interface-in-wsl2"></a>
-</h3>
+</h2>
 <p>All following lines of code can be copy/pasted into your terminal.
 Pasting using <code>CTRL</code>+<code>V</code> into a terminal my not
 work. After copying a line of code, try pasting into the terminal with a
@@ -352,16 +359,15 @@ Ubuntu-18.04 command prompt and run:</li>
 </li>
 </ol>
 </div>
-<div class="section level3">
-<h3 id="install-a-sequence-viewer">Install a sequence viewer<a class="anchor" aria-label="anchor" href="#install-a-sequence-viewer"></a>
-</h3>
+<div class="section level2">
+<h2 id="install-a-sequence-viewer">Install a sequence viewer<a class="anchor" aria-label="anchor" href="#install-a-sequence-viewer"></a>
+</h2>
 <ul>
 <li><a href="https://bioedit.software.informer.com/" class="external-link">Windows Bio
 Edit</a></li>
 <li><a href="https://ormbunkar.se/aliview/#DOWNLOAD" class="external-link">Mac
 Aliview</a></li>
 </ul>
-</div>
 </div>
   </div>
 

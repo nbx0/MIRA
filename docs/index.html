@@ -54,7 +54,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/docker.html">Containing iSpy</a>
+      <a href="articles/docker.html">Containerizing iSpy with Docker</a>
     </li>
     <li>
       <a href="articles/docker-compose.html">Running iSpy with Docker-Compose</a>
@@ -80,7 +80,7 @@
   </ul>
 </li>
 <li>
-  <a href="articles/help.html">Help</a>
+  <a href="articles/FAQs.html">FAQs</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -107,7 +107,7 @@
   <div class="contents col-md-9">
 
 <div class="section level1">
-<div class="page-header"><h1 id="interactive-dashboard-for-influenza-genome-and-sars-cov-2-spike-gene-assembly-and-curation">Interactive Dashboard for Influenza Genome and SARS-CoV-2 Spike-Gene Assembly and Curation<a class="anchor" aria-label="anchor" href="#interactive-dashboard-for-influenza-genome-and-sars-cov-2-spike-gene-assembly-and-curation"></a>
+<div class="page-header"><h1 id="ispy-interactive-dashboard-for-influenza-genome-and-sars-cov-2-spike-gene-assembly-and-curation">iSpy: Interactive Dashboard for Influenza Genome and SARS-CoV-2 Spike-Gene Assembly and Curation<a class="anchor" aria-label="anchor" href="#ispy-interactive-dashboard-for-influenza-genome-and-sars-cov-2-spike-gene-assembly-and-curation"></a>
 </h1></div>
 <p>Version: 1.0.0 (Beta)</p>
 <p><strong>Beta version</strong> This pipeline is currently in Beta testing and issues could appear during submission, use at your own risk. Feedback and suggestions are welcome!</p>
@@ -117,17 +117,29 @@
 <div class="section level1">
 <h1 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h1>
-<p><strong>iSpy</strong> is an interactive dashboard created using <strong>Dash</strong>, a python framework written on the top of <strong>Flask</strong>, <strong>Plotly.js</strong> and <strong>React.js</strong>. The dashboard allows users to interactively create a metadata and config file for Influenza Genome and SARS-CoV-2 Spike-Gene Assembly. Subsequently, it will generate the files necessary to upload via FTP to NCBI’s databases <strong>Genbank</strong>, <strong>BioSample</strong>, and <strong>SRA</strong>, as well as <strong>GISAID</strong>.</p>
-<p>Below is a flowchart diagram that illustrates the process of Influenza genome and SARS-CoV-2 spike-gene assembly and curation. In generality, the process starts with demultiplexed sequencing reads from an Illumina or Oxford Nanopore Technologies sequencer and finish with high quality genomes ready for submission to public repositories.</p>
+<p><strong>iSpy</strong> is an interactive dashboard created using <strong>Dash</strong>, a python framework written on the top of <strong>Flask</strong>, <strong>Plotly.js</strong> and <strong>React.js</strong>. The dashboard allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene Assembly. Subsequently, it will generate the files necessary to upload via FTP to NCBI’s databases <strong>Genbank</strong>, <strong>BioSample</strong>, and <strong>SRA</strong>, as well as <strong>GISAID</strong>.</p>
+<p>Below is a flowchart diagram that illustrates the process of Influenza Genome and SARS-CoV-2 spike-gene assembly and curation. In generality, the process starts with demultiplexed sequencing reads from an Illumina or Oxford Nanopore Technologies sequencer and finish with high quality genomes ready for submission to public repositories.</p>
 <p><img src="reference/figures/mermaid_flow.png"></p>
+<p>The iSpy’s dashboard relies on four Docker containers to run its genome assembly and curation:</p>
+<ul>
+<li>
+<strong>IRMA (Iterative Refinement Meta-Assembler):</strong> designed for the robust assembly, variant calling, and phasing of highly variable RNA viruses. IRMA is deployed with modules for influenza, ebolavirus and coronavirus.</li>
+<li>
+<strong>DAIS-Ribosome:</strong> compartmentalizes the translation engine developed for the CDC Influenza Division protein analytics database. The tool has been extended for use with Betacoronavirus.</li>
+<li>
+<strong>spyne:</strong> a Snakemake workflow manager designed for running Influenza Genome and SARS-CoV-2 Spike-Gene assembly.</li>
+<li>
+<strong>iSpy:</strong> a GUI web interface that allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene assembly and curation.</li>
+</ul>
+<hr>
 </div>
 <div class="section level1">
-<h1 id="contents">Contents<a class="anchor" aria-label="anchor" href="#contents"></a>
+<h1 id="user-guide">User Guide:<a class="anchor" aria-label="anchor" href="#user-guide"></a>
 </h1>
 <ul>
-<li><a href="https://nbx0.github.io/iSpy/docker.html" class="external-link">Dockerize iSpy</a></li>
-<li><a href="https://nbx0.github.io/iSpy/docker-compose.html" class="external-link">Running iSpy with Docker-Compose</a></li>
-<li><a href="https://nbx0.github.io/iSpy/#ngs-training" class="external-link">NGS Training</a></li>
+<li><a href="articles/docker.html">Containerizing iSpy with Docker</a></li>
+<li><a href="articles/docker-compose.html">Running iSpy with Docker-Compose</a></li>
+<li><a href="articles/getting-started.html">Getting started with NGS Training using iSpy</a></li>
 </ul>
 </div>
 

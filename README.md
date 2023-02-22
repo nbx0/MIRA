@@ -1,5 +1,5 @@
 
-# Interactive Dashboard for Influenza Genome and SARS-CoV-2 Spike-Gene Assembly and Curation
+# iSpy: Interactive Dashboard for Influenza Genome and SARS-CoV-2 Spike-Gene Assembly and Curation
 
 Version: 1.0.0 (Beta)
 
@@ -22,16 +22,26 @@ service, product, or enterprise.
 **iSpy** is an interactive dashboard created using **Dash**, a python framework
 written on the top of **Flask**, **Plotly.js** and **React.js**. The dashboard
 allows users to interactively create a metadata and config file for
-Influenza Genome and SARS-CoV-2 Spike-Gene Assembly. Subsequently, it
+running Influenza Genome and SARS-CoV-2 Spike-Gene Assembly. Subsequently, it
 will generate the files necessary to upload via FTP to NCBI’s databases
 **Genbank**, **BioSample**, and **SRA**, as well as **GISAID**.
 
-Below is a flowchart diagram that illustrates the process of Influenza genome and SARS-CoV-2 spike-gene assembly and curation. In generality, the process starts with demultiplexed sequencing reads from an Illumina or Oxford Nanopore Technologies sequencer and finish with high quality genomes ready for submission to public repositories.
+Below is a flowchart diagram that illustrates the process of Influenza Genome and SARS-CoV-2 spike-gene assembly and curation. In generality, the process starts with demultiplexed sequencing reads from an Illumina or Oxford Nanopore Technologies sequencer and finish with high quality genomes ready for submission to public repositories.
 
 ![](man/figures/mermaid_flow.png)
 
-# Contents
-- [Dockerize iSpy](https://nbx0.github.io/iSpy/docker.html)
-- [Running iSpy with Docker-Compose](https://nbx0.github.io/iSpy/docker-compose.html)
-- [NGS Training](https://nbx0.github.io/iSpy/#ngs-training)
+
+The iSpy’s dashboard relies on four Docker containers to run its genome assembly and curation: 
+
+- **IRMA (Iterative Refinement Meta-Assembler):** designed for the robust assembly, variant calling, and phasing of highly variable RNA viruses. IRMA is deployed with modules for influenza, ebolavirus and coronavirus.
+- **DAIS-Ribosome:** compartmentalizes the translation engine developed for the CDC Influenza Division protein analytics database. The tool has been extended for use with Betacoronavirus.
+- **spyne:** a Snakemake workflow manager designed for running Influenza Genome and SARS-CoV-2 Spike-Gene assembly.
+- **iSpy:** a GUI web interface that allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene assembly and curation.
+
+<hr>
+
+# User Guide:
+- [Containerizing iSpy with Docker](articles/docker.html)
+- [Running iSpy with Docker-Compose](articles/docker-compose.html)
+- [Getting started with NGS Training using iSpy](articles/getting-started.html)
 
