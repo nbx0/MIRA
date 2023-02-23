@@ -3,7 +3,7 @@
 
 iSpy relies on four Docker **_containers_** to run, each of which must be installed using the `docker pull` command inside Linux or Mac Terminal to download the docker **_images_** from the Quay.io repository (IRMA and DAIS-Ribosome are presently stored in AWS's ECR). These **_images_** are then built into runnable **_containers_** with the `docker run` command.
 
-If using a Windows PC, you should have already installed WSL2, Docker Desktop, **and** Docker CLI inside WSL2. If you have not, [please return to those instructions.](#how-to-install-linux-on-a-windows-1011-computer)
+If using a Windows PC, you should have already installed WSL2, Docker Desktop, **and** Docker CLI inside WSL2. If you have not, [please return to those instructions.](getting-started.html)
 
 1. Open an Ubuntu or Mac Terminal
 2. Pull the container for our genome assembler: [IRMA](https://wonder.cdc.gov/amd/flu/irma/)

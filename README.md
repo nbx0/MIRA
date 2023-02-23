@@ -41,7 +41,7 @@ The iSpy’s dashboard relies on four Docker containers to run its genome assemb
 <hr>
 
 # User Guide:
-- [Containerizing iSpy with Docker](articles/docker.html)
-- [Running iSpy with Docker-Compose](articles/docker-compose.html)
-- [Getting started with NGS Training using iSpy](articles/getting-started.html)
+- [Containerizing iSpy with Docker](https://rchau88.github.io/iSpy-docs/articles/docker.html)
+- [Running iSpy with Docker-Compose](https://rchau88.github.io/iSpy-docs/articles/docker-compose.html)
+- [Getting started with NGS Training using iSpy](https://rchau88.github.io/iSpy-docs/articles/getting-started.html)
 

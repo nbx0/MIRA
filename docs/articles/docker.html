@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">iSpy</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -118,11 +118,11 @@
 <p>There are two versions of docker images for iSpy:</p>
 <ul>
 <li>
-<a href="#development-version">Development version</a> for
-continuous integration of the application</li>
+<a href="#build-development-version-of-ispy">Development version</a>
+for continuous integration of the application</li>
 <li>
-<a href="#production-version">Production version</a> for deployment
-of the application</li>
+<a href="#build-production-version-of-ispy">Production version</a>
+for deployment of the application</li>
 </ul>
 </div>
 <div class="section level2">
@@ -140,9 +140,10 @@ of the application</li>
 <li>IRMA (stored in <a href="https://gallery.ecr.aws/n3z8t4o2/irma" class="external-link">AWS’s ECR</a>)</li>
 <li>Dais-Ribosome (stored in <a href="https://gallery.ecr.aws/n3z8t4o2/dais-ribosome" class="external-link">AWS’s
 ECR</a>)</li>
-<li>spyne (stored in <a href="https://gallery.ecr.aws/n3z8t4o2/irma" class="external-link">quay.io’s respitory</a>,
-also see <a href="https://github.com/nbx0/spyne" class="external-link">our Github repo</a> for
-more details about the usage of the application)</li>
+<li>spyne (stored in <a href="https://quay.io/repository/nbx0_cdc/spyne" class="external-link">Quay.io’s
+respitory</a>, also see <a href="https://github.com/nbx0/spyne" class="external-link">our
+Github repo</a> for more details about the usage of the
+application)</li>
 </ul>
 </div>
 <div class="section level2">
@@ -153,20 +154,20 @@ more details about the usage of the application)</li>
 <strong>spyne</strong> docker images</li>
 </ol>
 <p>IRMA version 1.0.2p3:</p>
-<pre><code>docker pull public.ecr.aws/n3z8t4o2/irma:1.0.2p3</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull public.ecr.aws/n3z8t4o2/irma:1.0.2p3</span></code></pre></div>
 <p>Dias-Ribosome version 1.2.1:</p>
-<pre><code>docker pull public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1</span></code></pre></div>
 <p>spyne version 1.1.0:</p>
-<pre><code>docker pull quay.io/nbx0_cdc/spyne:v1.1.0</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull quay.io/nbx0_cdc/spyne:v1.1.0</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Run IRMA, Dais-Ribosome, and spyne containers</li>
 </ol>
 <p>IRMA:</p>
-<pre><code>docker run -v /path/to/data:/data --name irma -t -d public.ecr.aws/n3z8t4o2/irma:1.0.2p3</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> /path/to/data:/data <span class="at">--name</span> irma <span class="at">-t</span> <span class="at">-d</span> public.ecr.aws/n3z8t4o2/irma:1.0.2p3</span></code></pre></div>
 <p>Dais-Ribosome:</p>
-<pre><code>docker run -v /path/to/data:/data --name dais-ribosome -t -d public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> /path/to/data:/data <span class="at">--name</span> dais-ribosome <span class="at">-t</span> <span class="at">-d</span> public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1</span></code></pre></div>
 <p>spyne:</p>
-<pre><code>docker run -v /path/to/data:/data --name spyne -t -d quay.io/nbx0_cdc/spyne:v1.1.0</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> /path/to/data:/data <span class="at">--name</span> spyne <span class="at">-t</span> <span class="at">-d</span> quay.io/nbx0_cdc/spyne:v1.1.0</span></code></pre></div>
 <p><strong>-v</strong>: mount host data directory to
 <strong>/data</strong> directory inside the container <br><strong>-t</strong>: allocate a pseudo-tty <br><strong>-d</strong>: run
 the container in detached mode <br></p>
@@ -176,7 +177,7 @@ directory is mounted to <strong>/data</strong> directory inside the
 container.</p>
 </div>
 <div class="section level2">
-<h2 id="development-version-of-ispy">Development version of iSpy<a class="anchor" aria-label="anchor" href="#development-version-of-ispy"></a>
+<h2 id="build-development-version-of-ispy">Build development version of iSpy<a class="anchor" aria-label="anchor" href="#build-development-version-of-ispy"></a>
 </h2>
 <p>This version allows you to mount the code base that is needed to
 develop the <code>iSpy</code> dashboard. Any updates or changes to the
@@ -186,7 +187,7 @@ application.</p>
 <div class="section level3">
 <h3 id="clone-this-respitory">(1) Clone this respitory<a class="anchor" aria-label="anchor" href="#clone-this-respitory"></a>
 </h3>
-<pre><code>git clone https://git.biotech.cdc.gov/nbx0/iSpy.git</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://git.biotech.cdc.gov/nbx0/iSpy.git</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="cd-to-ispy-folder-where-dockerfile-file-is-stored-and-build-the-docker-image-">(2) CD to <code>iSpy</code> folder where <code>Dockerfile</code>
@@ -199,13 +200,13 @@ dashboard.</p>
 <li>Build the docker image using a <code>build-arg</code> flag and
 setting <code>BUILD_STAGE=dev</code> for development stage</li>
 </ul>
-<pre><code>docker build -t iSpy-dev:v1.0.0 --build-arg BUILD_STAGE=dev .</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> iSpy-dev:v1.0.0 <span class="at">--build-arg</span> BUILD_STAGE=dev .</span></code></pre></div>
 <p>or</p>
 <ul>
 <li>Build the docker image with a specific dockerfile for the
 development stage (e.g. <code>Dockerfile.dev</code>)</li>
 </ul>
-<pre><code>docker build -t iSpy-dev:v1.0.0 -f Dockerfile.dev .</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> iSpy-dev:v1.0.0 <span class="at">-f</span> Dockerfile.dev .</span></code></pre></div>
 <p><strong>-t</strong>: add a tag to an image such as the version of the
 application, e.g. <em>iSpy-dev:v1.0.0</em> or <em>iSpy-dev:latest</em>
 <br><strong><code>--</code>file, -f</strong>: name of the Dockerfile
@@ -220,15 +221,15 @@ to build</em></p>
 <h3 id="after-the-build-is-completed-you-can-check-if-the-image-is-built-successfully">(3) After the build is completed, you can check if the image is
 built successfully<a class="anchor" aria-label="anchor" href="#after-the-build-is-completed-you-can-check-if-the-image-is-built-successfully"></a>
 </h3>
-<pre><code>docker images
-
-REPOSITORY        TAG        IMAGE ID        CREATED        SIZE
-iSpy-dev          v1.0.0     2c22887402d3    2 hours ago    1.63GB</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> images</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">REPOSITORY</span>        TAG        IMAGE ID        CREATED        SIZE</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">iSpy-dev</span>          v1.0.0     2c22887402d3    2 hours ago    1.63GB</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="to-run-the-ispy-dev-container">(4) To run the <code>iSpy-dev</code> container<a class="anchor" aria-label="anchor" href="#to-run-the-ispy-dev-container"></a>
 </h3>
-<pre><code>docker run -v /path/to/data:/data -v /path/to/iSpy:/iSpy -v /var/run/docker.sock:/var/run/docker.sock -d -p 8080:8050 --name iSpy-dev iSpy-dev:v1.0.0 </code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> /path/to/data:/data <span class="at">-v</span> /path/to/iSpy:/iSpy <span class="at">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="at">-d</span> <span class="at">-p</span> 8080:8050 <span class="at">--name</span> iSpy-dev iSpy-dev:v1.0.0 </span></code></pre></div>
 <p><strong>NOTE:</strong></p>
 <ul>
 <li>Change <strong>/path/to/data</strong> to your local directory where
@@ -262,12 +263,11 @@ reference</a></p>
 <div class="section level3">
 <h3 id="to-check-if-the-container-is-built-sucessfully">(5) To check if the container is built sucessfully<a class="anchor" aria-label="anchor" href="#to-check-if-the-container-is-built-sucessfully"></a>
 </h3>
-<pre><code>docker container ps
-
-
-CONTAINER ID   IMAGE               COMMAND                    CREATED        STATUS        PORTS                    NAMES
-b37b6b19c4e8   iSpy-dev:v1.0.0     "bash dashboard-kickoff"   5 hours ago    Up 5 hours    0.0.0.0:8080-&gt;8050/tcp   iSpy-dev
-</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> container ps</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">CONTAINER</span> ID   IMAGE               COMMAND                    CREATED        STATUS        PORTS                    NAMES</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">b37b6b19c4e8</span>   iSpy-dev:v1.0.0     <span class="st">"bash dashboard-kickoff"</span>   5 hours ago    Up 5 hours    0.0.0.0:8080-<span class="op">&gt;</span>8050/tcp   iSpy-dev</span></code></pre></div>
 <p><strong>NOTE:</strong> Here the <code>iSpy-dev</code> container is
 published on port <strong>8080</strong> on the host machine, and
 <strong>8050</strong> is the port of where the <code>iSpy</code> is
@@ -283,7 +283,7 @@ indeed hosted there.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="production-version-of-ispy">Production version of iSpy<a class="anchor" aria-label="anchor" href="#production-version-of-ispy"></a>
+<h2 id="build-production-version-of-ispy">Build production version of iSpy<a class="anchor" aria-label="anchor" href="#build-production-version-of-ispy"></a>
 </h2>
 <p>This version <strong>ONLY</strong> allows you to mount the data files
 that are needed to populate the <code>iSpy</code> dashboard. In other
@@ -292,7 +292,7 @@ is using its latest containerized version of the code.</p>
 <div class="section level3">
 <h3 id="clone-this-respitory-1">(1) Clone this respitory<a class="anchor" aria-label="anchor" href="#clone-this-respitory-1"></a>
 </h3>
-<pre><code>git clone https://git.biotech.cdc.gov/nbx0/iSpy.git</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://git.biotech.cdc.gov/nbx0/iSpy.git</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="cd-to-ispy-folder-where-dockerfile-file-is-stored-and-build-the-docker-image--1">(2) CD to <code>iSpy</code> folder where <code>Dockerfile</code>
@@ -303,13 +303,13 @@ file is stored and build the docker image.<a class="anchor" aria-label="anchor" 
 DEFAULT, you can omit the <code>build-arg</code> flag during the
 build.</li>
 </ul>
-<pre><code>docker build -t iSpy-prod:v1.0.0 .</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> iSpy-prod:v1.0.0 .</span></code></pre></div>
 <p>or</p>
 <ul>
 <li>Build the docker image with a specific dockerfile for production
 stage (e.g. <code>Dockerfile.prod</code>)</li>
 </ul>
-<pre><code>docker build -t iSpy-prod:v1.0.0 -f Dockerfile.prod .</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> iSpy-prod:v1.0.0 <span class="at">-f</span> Dockerfile.prod .</span></code></pre></div>
 <p><strong>-t</strong>: add a tag to an image such as the version of the
 application, e.g. <em>iSpy-prod:v1.0.0</em> or <em>iSpy-prod:latest</em>
 <br><strong><code>--</code>file, -f</strong>: name of the
@@ -321,15 +321,15 @@ to build</em></p>
 <h3 id="after-the-build-is-completed-you-can-check-if-the-image-is-built-successfully-">(3) After the build is completed, you can check if the image is
 built successfully.<a class="anchor" aria-label="anchor" href="#after-the-build-is-completed-you-can-check-if-the-image-is-built-successfully-"></a>
 </h3>
-<pre><code>docker images
-
-REPOSITORY        TAG        IMAGE ID        CREATED        SIZE
-iSpy-prod         v1.0.0     6dab1b639b9a    2 hours ago    1.63GB</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> images</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">REPOSITORY</span>        TAG        IMAGE ID        CREATED        SIZE</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">iSpy-prod</span>         v1.0.0     6dab1b639b9a    2 hours ago    1.63GB</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="to-run-the-ispy-prod-container">(4) To run the <code>iSpy-prod</code> container<a class="anchor" aria-label="anchor" href="#to-run-the-ispy-prod-container"></a>
 </h3>
-<pre><code>docker run -v /path/to/data:/data -v /var/run/docker.sock:/var/run/docker.sock -d -p 8050:8050 --name iSpy-prod iSpy-prod:v1.0.0 </code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> /path/to/data:/data <span class="at">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="at">-d</span> <span class="at">-p</span> 8050:8050 <span class="at">--name</span> iSpy-prod iSpy-prod:v1.0.0 </span></code></pre></div>
 <p><strong>NOTE:</strong></p>
 <ul>
 <li>Change <strong>/path/to/data</strong> to your local directory where
@@ -359,12 +359,11 @@ reference</a></p>
 <div class="section level3">
 <h3 id="to-check-if-the-container-is-built-sucessfully-1">(5) To check if the container is built sucessfully<a class="anchor" aria-label="anchor" href="#to-check-if-the-container-is-built-sucessfully-1"></a>
 </h3>
-<pre><code>docker container ps
-
-
-CONTAINER ID   IMAGE                COMMAND                    CREATED        STATUS        PORTS                    NAMES
-717b0825bc66   iSpy-prod:v1.0.0     "bash dashboard-kickoff"   5 hours ago    Up 5 hours    0.0.0.0:8050-&gt;8050/tcp   iSpy-prod
-</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> container ps</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="ex">CONTAINER</span> ID   IMAGE                COMMAND                    CREATED        STATUS        PORTS                    NAMES</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ex">717b0825bc66</span>   iSpy-prod:v1.0.0     <span class="st">"bash dashboard-kickoff"</span>   5 hours ago    Up 5 hours    0.0.0.0:8050-<span class="op">&gt;</span>8050/tcp   iSpy-prod</span></code></pre></div>
 <p><strong>NOTE:</strong> Here we are publishing the
 <code>iSpy-prod</code> dashboard on port <strong>8050</strong> on the
 host machine. This port is different from the

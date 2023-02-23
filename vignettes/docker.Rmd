@@ -3,8 +3,8 @@
 
 There are two versions of docker images for iSpy:
 
-- [Development version](#development-version) for continuous integration of the application
-- [Production version](#production-version) for deployment of the application
+- [Development version](#build-development-version-of-ispy) for continuous integration of the application
+- [Production version](#build-production-version-of-ispy) for deployment of the application
 
 ## Software requirements
 
@@ -15,41 +15,42 @@ There are two versions of docker images for iSpy:
 
 - IRMA (stored in [AWS’s ECR](https://gallery.ecr.aws/n3z8t4o2/irma))
 - Dais-Ribosome (stored in [AWS’s ECR](https://gallery.ecr.aws/n3z8t4o2/dais-ribosome))
-- spyne (stored in [quay.io's respitory](https://gallery.ecr.aws/n3z8t4o2/irma), also see [our Github repo ](https://github.com/nbx0/spyne) for more details about the usage of the application)
+- spyne (stored in [Quay.io's respitory](https://quay.io/repository/nbx0_cdc/spyne), also see [our Github repo ](https://github.com/nbx0/spyne) for more details about the usage of the application)
 
 ## Setting up containers
 
 1) Pull down **IRMA**, **Dais-Ribosome**, and **spyne** docker images
 
 IRMA version 1.0.2p3: 
-```
+
+```bash
 docker pull public.ecr.aws/n3z8t4o2/irma:1.0.2p3
 ```
 
 Dias-Ribosome version 1.2.1: 
-```
+```bash
 docker pull public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1
 ```
 
 spyne version 1.1.0: 
-```
+```bash
 docker pull quay.io/nbx0_cdc/spyne:v1.1.0
 ```
 
 (2) Run IRMA, Dais-Ribosome, and spyne containers
 
 IRMA: 
-```
+```bash
 docker run -v /path/to/data:/data --name irma -t -d public.ecr.aws/n3z8t4o2/irma:1.0.2p3
 ```
 
 Dais-Ribosome:
-```
+```bash
 docker run -v /path/to/data:/data --name dais-ribosome -t -d public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1
 ```
 
 spyne:
-```
+```bash
 docker run -v /path/to/data:/data --name spyne -t -d quay.io/nbx0_cdc/spyne:v1.1.0
 ```
 
@@ -59,13 +60,13 @@ docker run -v /path/to/data:/data --name spyne -t -d quay.io/nbx0_cdc/spyne:v1.1
 
 **Important Note:** make sure **/path/to/data** are the same for all containers. This directory is mounted to **/data** directory inside the container.
 
-## Development version of iSpy
+## Build development version of iSpy
 
 This version allows you to mount the code base that is needed to develop the `iSpy` dashboard. Any updates or changes to the code will automatically reflects the changes inside the Docker container. This allows continuous integration (CI) of the application.
 
 ### (1) Clone this respitory
 
-```
+```bash
 git clone https://git.biotech.cdc.gov/nbx0/iSpy.git
 ``` 
 
@@ -75,7 +76,7 @@ __NOTE:__ `Dockerfile` contains a list of instructions and steps of how to build
 
 - Build the docker image using a `build-arg` flag and setting `BUILD_STAGE=dev` for development stage
 
-```
+```bash
 docker build -t iSpy-dev:v1.0.0 --build-arg BUILD_STAGE=dev .
 ```
 
@@ -83,7 +84,7 @@ or
 
 -  Build the docker image with a specific dockerfile for the development stage (e.g. `Dockerfile.dev`)
 
-```
+```bash
 docker build -t iSpy-dev:v1.0.0 -f Dockerfile.dev .
 ```
 
@@ -95,7 +96,7 @@ __NOTE:__ _The image took approximately < 10 mins to build_
 
 ### (3) After the build is completed, you can check if the image is built successfully
 
-```
+```bash
 docker images
 
 REPOSITORY        TAG        IMAGE ID        CREATED        SIZE
@@ -104,7 +105,7 @@ iSpy-dev          v1.0.0     2c22887402d3    2 hours ago    1.63GB
 
 ### (4) To run the `iSpy-dev` container
 
-```    
+```bash    
 docker run -v /path/to/data:/data -v /path/to/iSpy:/iSpy -v /var/run/docker.sock:/var/run/docker.sock -d -p 8080:8050 --name iSpy-dev iSpy-dev:v1.0.0 
 ```
 
@@ -123,7 +124,7 @@ For more information about the Docker syntax, see [Docker run reference](https:/
 
 ### (5) To check if the container is built sucessfully
 
-```
+```bash
 docker container ps
 
 
@@ -138,13 +139,13 @@ b37b6b19c4e8   iSpy-dev:v1.0.0     "bash dashboard-kickoff"   5 hours ago    Up 
 
 You can visit the local host using your preferred web browser, type in http://localhost:8080, and check if the dashboard is indeed hosted there.
 
-## Production version of iSpy
+## Build production version of iSpy
 
 This version **ONLY** allows you to mount the data files that are needed to populate the `iSpy` dashboard. In other words, you do not have access to the code base of `iSpy` but is using its latest containerized version of the code.
 
 ### (1) Clone this respitory
 
-```
+```bash
 git clone https://git.biotech.cdc.gov/nbx0/iSpy.git
 ``` 
 
@@ -152,7 +153,7 @@ git clone https://git.biotech.cdc.gov/nbx0/iSpy.git
 
 - Since the image is built with the `prod` stage by DEFAULT, you can omit the `build-arg` flag during the build.
 
-```
+```bash
 docker build -t iSpy-prod:v1.0.0 .
 ```
 
@@ -160,7 +161,7 @@ or
 
 - Build the docker image with a specific dockerfile for production stage (e.g. `Dockerfile.prod`)
 
-```
+```bash
 docker build -t iSpy-prod:v1.0.0 -f Dockerfile.prod .
 ```
 
@@ -171,7 +172,7 @@ __NOTE:__ _The image took approximately < 10 mins to build_
 
 ### (3) After the build is completed, you can check if the image is built successfully.
 
-```
+```bash
 docker images
 
 REPOSITORY        TAG        IMAGE ID        CREATED        SIZE
@@ -180,7 +181,7 @@ iSpy-prod         v1.0.0     6dab1b639b9a    2 hours ago    1.63GB
 
 ### (4) To run the `iSpy-prod` container
 
-```    
+```bash   
 docker run -v /path/to/data:/data -v /var/run/docker.sock:/var/run/docker.sock -d -p 8050:8050 --name iSpy-prod iSpy-prod:v1.0.0 
 ```
 
@@ -198,7 +199,7 @@ For more information about the Docker syntax, see [Docker run reference](https:/
 
 ### (5) To check if the container is built sucessfully
 
-```
+```bash
 docker container ps
 
 
