@@ -117,7 +117,7 @@
 <div class="section level1">
 <h1 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h1>
-<p><strong>iSpy</strong> is an interactive dashboard created using <strong>Dash</strong>, a python framework written on the top of <strong>Flask</strong>, <strong>Plotly.js</strong> and <strong>React.js</strong>. The dashboard allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene Assembly. Subsequently, it will generate the files necessary to upload via FTP to NCBI’s databases <strong>Genbank</strong>, <strong>BioSample</strong>, and <strong>SRA</strong>, as well as <strong>GISAID</strong>.</p>
+<p><strong>iSpy</strong> is an interactive dashboard created using <strong><a href="https://dash.plotly.com/introduction" class="external-link">Dash</a></strong>, a python framework written on the top of <strong>Flask</strong>, <strong>Plotly.js</strong> and <strong>React.js</strong>. The dashboard allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene Assembly. Coming soon, it will generate the files necessary to upload via FTP to NCBI’s databases <strong>Genbank</strong>, <strong>BioSample</strong>, and <strong>SRA</strong>, as well as <strong>GISAID</strong>.</p>
 <p>Below is a flowchart diagram that illustrates the process of Influenza Genome and SARS-CoV-2 spike-gene assembly and curation. In generality, the process starts with demultiplexed sequencing reads from an Illumina or Oxford Nanopore Technologies sequencer and finish with high quality genomes ready for submission to public repositories.</p>
 <p><img src="reference/figures/mermaid_flow.png"></p>
 <p>The iSpy’s dashboard relies on four Docker containers to run its genome assembly and curation:</p>
@@ -137,11 +137,12 @@
 </h2>
 <ul>
 <li>
-<a href="https://raw.githubusercontent.com/nbx0/iSpy/prod/irmavision_install.sh" download class="external-link">Download the install script</a> and save it into the folder that you will add new run-folders to.</li>
+<a href="https://raw.githubusercontent.com/nbx0/iSpy/prod/irmavision_install.sh" download class="external-link">Right click this link and click ‘save as’</a> and save it into the folder that you will add new run-folders to.</li>
 <li>Navigate to that folder on the command line and run: <code>bash     chmod +x irma_vision_install.sh</code>
 </li>
 <li>Run the install script with sudo: <code>bash     sudo irma_vision_install.sh</code>
 </li>
+<li>Open your browser and type <a href="http://localhost:80200" class="external-link uri">http://localhost:80200</a> in the address bar</li>
 </ul>
 <hr>
 </div>
