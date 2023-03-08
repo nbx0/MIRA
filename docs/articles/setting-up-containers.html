@@ -112,111 +112,12 @@
 
     
     
-<div class="section level2">
-<h2 id="setting-up-containers">Setting up containers<a class="anchor" aria-label="anchor" href="#setting-up-containers"></a>
-</h2>
-<p>iSpy relies on four Docker <strong><em>containers</em></strong> to
-run, each of which must be installed using the <code>docker pull</code>
-command inside Linux or Mac Terminal to download the docker
-<strong><em>images</em></strong> from the Quay.io repository (IRMA and
-DAIS-Ribosome are presently stored in AWS’s ECR). These
-<strong><em>images</em></strong> are then built into runnable
-<strong><em>containers</em></strong> with the <code>docker run</code>
-command.</p>
-<p>If using a Windows PC, you should have already installed WSL2, Docker
-Desktop, <strong>and</strong> Docker CLI inside WSL2. If you have not,
-<a href="getting-started.html">please return to those
-instructions.</a></p>
-<ol style="list-style-type: decimal">
-<li><p>Open an Ubuntu or Mac Terminal</p></li>
-<li>
-<p>Pull the container for our genome assembler: <a href="https://wonder.cdc.gov/amd/flu/irma/" class="external-link">IRMA</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull public.ecr.aws/n3z8t4o2/irma:1.0.2p3</span></code></pre></div>
-<ul>
-<li>if you see a “Permission Denied” error, try to rerun with sudo
-before “docker pull” <br><br>
-</li>
-</ul>
-</li>
-<li>
-<p>Pull the container for our genome annotator: DAIS-Ribosome</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1</span></code></pre></div>
-</li>
-<li>
-<p>Pull the container for iSpy’s backend “spyne” <a href="https://snakemake.readthedocs.io/en/stable/" class="external-link">Snakemake workflow
-manager</a></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull quay.io/nbx0_cdc/spyne:v1.1.1</span></code></pre></div>
-</li>
-<li>
-<p>Pull the container for iSpy</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull quay.io/nbx0_cdc/ispy:v1.1.0</span></code></pre></div>
-</li>
-<li>
-<p>Create a folder inside Ubuntu that will store your sequencing
-runs’ data.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> ~/FLU_SC2_SEQUENCING</span></code></pre></div>
-<ul>
-<li>
-<strong><em>Optional:</em></strong> Navigate to
-<code>File Explorer</code> and find this folder inside the Ubuntu mount
-on the left sidebar. Click on this folder to open its contents and then
-open <code>home</code> and then open the folder named for your WSL
-<em>username</em>. Right click “FLU_SC2_SEQUENCING” and
-<code>Create Shortcut</code>. Move the shortcut folder to a memorable
-location such as your Desktop. <br><br>
-</li>
-</ul>
-</li>
-<li>
-<p>Build the IRMA container</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="va">$(</span><span class="fu">readlink</span> <span class="at">-f</span> ~/FLU_SC2_SEQUENCING<span class="va">)</span>:/data <span class="at">--name</span> irma-1.0.2p3 <span class="at">-t</span> <span class="at">-d</span> public.ecr.aws/n3z8t4o2/irma:1.0.2p3</span></code></pre></div>
-</li>
-<li>
-<p>Build the DAIS-Ribosome container</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="va">$(</span><span class="fu">readlink</span> <span class="at">-f</span> ~/FLU_SC2_SEQUENCING<span class="va">)</span>:/data <span class="at">--name</span> dais-ribosome-1.2.1 <span class="at">-t</span> <span class="at">-d</span> public.ecr.aws/n3z8t4o2/dais-ribosome:1.2.1</span></code></pre></div>
-</li>
-<li>
-<p>Build the spyne container</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="va">$(</span><span class="fu">readlink</span> <span class="at">-f</span> ~/FLU_SC2_SEQUENCING<span class="va">)</span>:/data <span class="at">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="at">--name</span> spyne <span class="at">-t</span> <span class="at">-d</span> quay.io/nbx0_cdc/spyne:v1.1.1</span></code></pre></div>
-</li>
-<li>
-<p>Build the iSpy container</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="va">$(</span><span class="fu">readlink</span> <span class="at">-f</span> ~/FLU_SC2_SEQUENCING<span class="va">)</span>:/data <span class="at">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="at">-d</span> <span class="at">-p</span> 8050:8050 <span class="at">--name</span> ispy quay.io/nbx0_cdc/ispy:v1.1.0</span></code></pre></div>
-</li>
-<li>
-<p><em>Optional :</em> <a href="https://centersfordiseasecontrol.sharefile.com/d-sb2d3b06e9ef946cf89e1a43c5a141a3f" class="external-link">Download
-test data here</a></p>
-<ul>
-<li>unzip the file and find two folders
-<ul>
-<li>tiny_test_run_flu</li>
-<li>tiny_test_run_sc2</li>
-</ul>
-</li>
-<li>move these folders into ~/FLU_SC2_SEQUENCING</li>
-<li>when you <code>Refresh Run Listing</code> in iSpy, you should now
-see these folders listed</li>
-<li>when running tiny_test_run_flu, enter barcode numbers
-<code>27,37,41</code> and make up sample names.</li>
-<li>when running tiny_test_run_sc2, enter barcode numbers
-<code>2,3,5,8,28</code> and make up sample names.</li>
-</ul>
-</li>
-</ol>
-<p>You are now ready to run iSpy! You can open it from
-<code>Docker Desktop</code> by clicking on the <code>Containers</code>
-tab on the left sidebar and clicking the icon of the box with the arrow
-pointing to the top left. This will open iSpy into your default internet
-browser.</p>
-<p><img src="images/dockerdesktop_launch_irmaspy.png"></p>
-</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
