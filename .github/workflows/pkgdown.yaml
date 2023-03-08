@@ -3,8 +3,6 @@
 on:
   push:
     branches: [prod]
-  pull_request:
-    branches: [prod]
   release:
     types: [published]
   workflow_dispatch:
