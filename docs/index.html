@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dash • IRMAVISION</title>
+<title>Dash • MIRA</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Dash">
-<meta property="og:description" content="IRMAVISION is an interactive dashboard created using Dash, a python framework 
+<meta property="og:description" content="MIRA is an interactive dashboard created using Dash, a python framework 
   written on the top of Flask, Plotly.js and React.js. The Dash dashboard 
   allows users to interactively create a metadata and config file for Influenza
   Genome and SARS-CoV-2 Spike-Gene Assembly. Subsequently, it generates files necessary 
@@ -36,7 +36,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">IRMAVISION</a>
+        <a class="navbar-link" href="index.html">MIRA</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
@@ -54,10 +54,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/docker.html">Containerizing iSpy with Docker</a>
+      <a href="articles/docker.html">Containerizing MIRA with Docker</a>
     </li>
     <li>
-      <a href="articles/docker-compose.html">Running iSpy with Docker-Compose</a>
+      <a href="articles/docker-compose.html">Running MIRA with Docker-Compose</a>
     </li>
   </ul>
 </li>
@@ -75,7 +75,7 @@
       <a href="articles/setting-up-containers.html">Setting up Containers</a>
     </li>
     <li>
-      <a href="articles/running-ispy.html">Running Genome Assembly with iSpy</a>
+      <a href="articles/running-mira.html">Running Genome Assembly with MIRA</a>
     </li>
   </ul>
 </li>
@@ -88,7 +88,7 @@
   <a href="news/index.html">Change Log</a>
 </li>
 <li>
-  <a href="https://github.com/nbx0/iSpy">
+  <a href="https://github.com/nbx0/MIRA">
     <span class="fa fa-github"></span>
      
   </a>
@@ -107,18 +107,25 @@
   <div class="contents col-md-9">
 
 <div class="section level1">
-<div class="page-header"><h1 id="irmavision-interactive-dashboard-for-influenza-genome-and-sars-cov-2-spike-gene-assembly-and-curation">IRMAVISION: Interactive Dashboard for Influenza Genome and SARS-CoV-2 Spike-Gene Assembly and Curation<a class="anchor" aria-label="anchor" href="#irmavision-interactive-dashboard-for-influenza-genome-and-sars-cov-2-spike-gene-assembly-and-curation"></a>
+<div class="page-header"><h1 id="mira-interactive-dashboard-for-influenza-genome-and-sars-cov-2-spike-gene-assembly-and-curation">MIRA: Interactive Dashboard for Influenza Genome and SARS-CoV-2 Spike-Gene Assembly and Curation<a class="anchor" aria-label="anchor" href="#mira-interactive-dashboard-for-influenza-genome-and-sars-cov-2-spike-gene-assembly-and-curation"></a>
 </h1></div>
 <p>Version: 1.0.0 (Beta)</p>
 <p><strong>Beta version</strong> This pipeline is currently in Beta testing and issues could appear during submission, use at your own risk. Feedback and suggestions are welcome!</p>
 <p><strong>General disclaimer</strong> This repository was created for use by CDC programs to collaborate on public health related projects in support of the <a href="https://www.cdc.gov/about/organization/mission.htm" class="external-link">CDC mission</a>. GitHub is not hosted by the CDC, but is a third party website used by CDC and its partners to share information and collaborate on software. CDC use of GitHub does not imply an endorsement of any one particular service, product, or enterprise.</p>
 <hr>
+<p><br></p>
+<div class="section level2">
+<h2 id="documentation-httpsnbx0githubiomira">
+<strong>Documentation: <a href="https://nbx0.github.io/MIRA/" class="external-link">https://nbx0.github.io/MIRA/</a></strong><a class="anchor" aria-label="anchor" href="#documentation-httpsnbx0githubiomira"></a>
+</h2>
+<p><br></p>
+</div>
 </div>
 <div class="section level1">
 <h1 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h1>
-<p><strong>IRMAVISION</strong> is an interactive dashboard created using <strong><a href="https://dash.plotly.com/introduction" class="external-link">Dash</a></strong>, a python framework written on the top of <strong>Flask</strong>, <strong>Plotly.js</strong> and <strong>React.js</strong>. The dashboard allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene Assembly. Coming soon, it will generate the files necessary to upload via FTP to NCBI’s databases <strong>Genbank</strong>, <strong>BioSample</strong>, and <strong>SRA</strong>, as well as <strong>GISAID</strong>.</p>
-<p>IRMAVISION’s dashboard relies on four Docker containers to run its genome assembly and curation:</p>
+<p><strong>MIRA</strong> is an interactive dashboard created using <strong><a href="https://dash.plotly.com/introduction" class="external-link">Dash</a></strong>, a python framework written on the top of <strong>Flask</strong>, <strong>Plotly.js</strong> and <strong>React.js</strong>. The dashboard allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene Assembly. Coming soon, it will generate the files necessary to upload via FTP to NCBI’s databases <strong>Genbank</strong>, <strong>BioSample</strong>, and <strong>SRA</strong>, as well as <strong>GISAID</strong>.</p>
+<p>MIRA’s dashboard relies on four Docker containers to run its genome assembly and curation:</p>
 <ul>
 <li>
 <strong>IRMA (Iterative Refinement Meta-Assembler):</strong> designed for the robust assembly, variant calling, and phasing of highly variable RNA viruses. IRMA is deployed with modules for influenza, ebolavirus and coronavirus.</li>
@@ -127,20 +134,41 @@
 <li>
 <strong>spyne:</strong> a Snakemake workflow manager designed for running Influenza Genome and SARS-CoV-2 Spike-Gene assembly.</li>
 <li>
-<strong>IRMAVISION:</strong> a GUI web interface that allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene assembly and curation.</li>
+<strong>MIRA:</strong> a GUI web interface that allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene assembly and curation.</li>
 </ul>
+<div class="figure">
+<img src="./articles/images/mira_flowchart_mermaid.png" alt=""><p class="caption">alt text</p>
+</div>
 <hr>
 <div class="section level2">
-<h2 id="quick-start">Quick Start:<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+<h2 id="quick-start-on-ubuntu-os">Quick Start on Ubuntu OS:<a class="anchor" aria-label="anchor" href="#quick-start-on-ubuntu-os"></a>
 </h2>
 <ul>
+<li><p><a href="https://raw.githubusercontent.com/nbx0/MIRA/prod/mira_install.sh" download class="external-link">Right click this link and click ‘save as’</a> and save it into the folder that you will add new run-folders to, ie. <code>FLU_SC2_SEQUENCING</code>.</p></li>
+<li><p>Navigate to that folder on the command line and run: <code>chmod +x ./MIRA-INSTALL.sh</code></p></li>
+<li><p>Run the install script with sudo: <code>sudo ./MIRA-INSTALL.sh</code></p></li>
+<li><p><a href="https://centersfordiseasecontrol.sharefile.com/d-sb2d3b06e9ef946cf89e1a43c5a141a3f" class="external-link">Click here to download test data</a></p></li>
 <li>
-<a href="https://raw.githubusercontent.com/nbx0/iSpy/prod/irmavision_install.sh" download class="external-link">Right click this link and click ‘save as’</a> and save it into the folder that you will add new run-folders to.</li>
-<li>Navigate to that folder on the command line and run: <code>chmod +x ./irmavision_install.sh</code>
+<p>unzip the file and find two folders:</p>
+<ol style="list-style-type: decimal">
+<li><code>tiny_test_run_flu</code></li>
+<li><code>tiny_test_run_sc2</code></li>
+</ol>
 </li>
-<li>Run the install script with sudo: <code>sudo ./irmavision_install.sh</code>
+<li><p>move these folders into <code>FLU_SC2_SEQUENCING</code></p></li>
+<li><p>Open your browser and type <a href="http://localhost:8020" class="external-link uri">http://localhost:8020</a> in the address bar.</p></li>
+<li><p>Click <code>Refresh Run Listing</code> in MIRA, you should now see these folders listed.</p></li>
+<li>
+<p>Select “tiny_test_run_flu”, enter barcode numbers <code>27,37,41</code> and make up sample names.</p>
+<ul>
+<li>Click ‘SAVE SAMPLESHEET’</li>
+<li>In the dropdown box ‘What kind of data is this?’, select ‘Flu-ONT’</li>
+<li>Click ‘START GENOME ASSEMBLY’</li>
+<li>Toggle ‘Watch IRMA progress’ to see IRMA’s stdout stream.</li>
+<li>When “IRMA is finished!” is displayed, Click “DISPLAY IRMA RESULTS”</li>
+</ul>
 </li>
-<li>Open your browser and type <a href="http://localhost:8020" class="external-link uri">http://localhost:8020</a> in the address bar</li>
+<li><p>Now select “tiny_test_run_sc2” from the very top dropdown and repeat the above steps except this time enter barcode numbers <code>2,3,5,8,28</code>.</p></li>
 </ul>
 <hr>
 </div>
@@ -152,8 +180,9 @@
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/nbx0/iSpy/">Browse source code</a></li>
-<li><a href="https://github.com/nbx0/iSpy/issues">Report a bug</a></li>
+<li><a href="https://www.bioconductor.org/packages/MIRA" class="external-link">View on Bioconductor</a></li>
+<li><a href="https://github.com/nbx0/MIRA/">Browse source code</a></li>
+<li><a href="https://github.com/nbx0/MIRA/issues">Report a bug</a></li>
 </ul>
 </div>
 
@@ -170,7 +199,7 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing IRMAVISION</a></li>
+<li><a href="authors.html#citation">Citing MIRA</a></li>
 </ul>
 </div>
 
