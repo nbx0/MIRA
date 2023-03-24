@@ -48,21 +48,6 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dockerization
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/docker.html">Containerizing MIRA with Docker</a>
-    </li>
-    <li>
-      <a href="articles/docker-compose.html">Running MIRA with Docker-Compose</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     NGS-Training
      
     <span class="caret"></span>
@@ -72,18 +57,27 @@
       <a href="articles/getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="articles/setting-up-containers.html">Setting up Containers</a>
+      <a href="articles/mira-installation.html">MIRA installation</a>
     </li>
     <li>
       <a href="articles/running-mira.html">Running Genome Assembly with MIRA</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Help
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/FAQs.html">FAQs</a>
     </li>
     <li>
       <a href="articles/troubleshooting.html">Troubleshooting</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="articles/FAQs.html">FAQs</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -127,7 +121,7 @@
 <div class="section level1">
 <h1 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h1>
-<p><strong>MIRA</strong> is an interactive dashboard created using <strong><a href="https://dash.plotly.com/introduction" class="external-link">Dash</a></strong>, a python framework written on the top of <strong>Flask</strong>, <strong>Plotly.js</strong> and <strong>React.js</strong>. The dashboard allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene Assembly. Coming soon, it will generate the files necessary to upload via FTP to NCBI’s databases <strong>Genbank</strong>, <strong>BioSample</strong>, and <strong>SRA</strong>, as well as <strong>GISAID</strong>.</p>
+<p><strong>MIRA</strong> is an interactive dashboard created using <strong><a href="https://dash.plotly.com/introduction" class="external-link">Dash</a></strong>, a python framework written on the top of <strong>Flask</strong>, <strong>Plotly.js</strong> and <strong>React.js</strong>. The dashboard allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene Assembly. Coming soon, it will allow for upload via FTP to NCBI’s databases <strong>Genbank</strong>, <strong>BioSample</strong>, and <strong>SRA</strong>, as well as <strong>GISAID</strong>.</p>
 <p>MIRA’s dashboard relies on four Docker containers to run its genome assembly and curation:</p>
 <ul>
 <li>
@@ -139,10 +133,7 @@
 <li>
 <strong>MIRA:</strong> a GUI web interface that allows users to interactively create a metadata and config file for running Influenza Genome and SARS-CoV-2 Spike-Gene assembly and curation.</li>
 </ul>
-<div class="figure">
-<img src="./articles/images/mira_flowchart_mermaid.png" alt=""><p class="caption">alt text</p>
-</div>
-<hr>
+<img src="articles/images/mira_flowchart_mermaid.png"><hr>
 <div class="section level2">
 <h2 id="quick-start-on-ubuntu-os">Quick Start on Ubuntu OS:<a class="anchor" aria-label="anchor" href="#quick-start-on-ubuntu-os"></a>
 </h2>

@@ -44,21 +44,6 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dockerization
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/docker.html">Containerizing MIRA with Docker</a>
-    </li>
-    <li>
-      <a href="../articles/docker-compose.html">Running MIRA with Docker-Compose</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     NGS-Training
      
     <span class="caret"></span>
@@ -68,18 +53,27 @@
       <a href="../articles/getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="../articles/setting-up-containers.html">Setting up Containers</a>
+      <a href="../articles/mira-installation.html">MIRA installation</a>
     </li>
     <li>
       <a href="../articles/running-mira.html">Running Genome Assembly with MIRA</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Help
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/FAQs.html">FAQs</a>
     </li>
     <li>
       <a href="../articles/troubleshooting.html">Troubleshooting</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../articles/FAQs.html">FAQs</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -122,7 +116,7 @@
 <p><em>This documentation assumes you have the four required Docker
 containers (<strong>IRMA</strong>, <strong>DAIS-Ribosome</strong>,
 <strong>spyne</strong>, and <strong>MIRA</strong>) already running. If
-not, please start with <a href="./setting-up-containers.Rmd">setting up
+not, please start with <a href="setting-up-containers.html">setting up
 containers</a> instructions.</em></p>
 <hr>
 </div>
@@ -147,8 +141,10 @@ into the RUN-FOLDER. On a Mk1C instrument, this is found in
 /data/RUN_NAME/EXPERIMENT_NAME/NANOPORE-NAME/fastq_pass where RUN_NAME
 and EXPERIMENT_NAME are defined by you in MinKNOW when you set up the
 sequencing run on the device and the NANOPORE-NAME is created by the
-instrument during the run. <img src="images/mira_run_directory_structure_fastq.png">
-</li>
+instrument during the run.</li>
+</ol>
+<p><img src="images/mira_run_directory_structure_fastq.png"></p>
+<ol start="2" style="list-style-type: decimal">
 <li><del>If this run is from an Illumina instrument, create another
 folder inside your RUN-FOLDER called “fastqs” and copy the folder
 containing demultiplexed fastqs into this newly created fastqs folder so
@@ -175,9 +171,12 @@ running or run each of them:</p>
 <li>MIRA</li>
 </ol>
 </li>
-<li><p>Run MIRA by clicking the blue link “8020:8050”. This will open
+<li>
+<p>Run MIRA by clicking the blue link “8020:8050”. This will open
 MIRA into your default internet browser. You can “bookmark” this site in
-your browser. <img src="images/mira_docker_rolleddown.png"></p></li>
+your browser.</p>
+<p><img src="images/mira_docker_rolleddown.png"></p>
+</li>
 <li>
 <p>Click the <code>REFRESH RUN LISTING</code> button and select your
 run from the dropdown box.</p>
@@ -238,7 +237,7 @@ can now click on “DISPLAY IRMA RESULTS”.</p>
 <li>
 <p>Review the distribution of reads assigned to each barcode. The
 ideal result would be a similar number of reads assigned to each test
-and positive control. However, it is ok not have similar read numbers
+and positive control. However, it is ok to not have similar read numbers
 per sample. Samples with a low proportion of reads may indicate higher
 Ct of starting material or less performant PCR during library
 preparation. What is most important for sequencing assembly is raw count
@@ -248,16 +247,35 @@ of reads and their quality.</p>
 <li>
 <p>Review the “Automatic Quality Control Decisions” heatmap. In
 addition to IRMA’s built in quality control, MIRA requires a minimum
-mean coverage of 50x, a minimum coverage of reference of 90%, and a
-maximum number of minor variants &gt;=5% of 10. These are marked in
-yellow to orange according to the number of these failure types. Samples
-that failed to generate any assembly are marked in red. In addition,
+median coverage of 50x, a minimum coverage of the reference length of
+90%, and less than 10 minor variants &gt;=5%. These are marked in yellow
+to orange according to the number of these failure types. Samples that
+failed to generate any assembly are marked in red. In addition,
 premature stop codons are flagged in yellow. CDC does not submit
 sequences with premature stop codons, particularly in HA, NA or
 SARS-CoV-2 Spike. Outside of those genes, premature stop codons near the
 end of the gene may be ok for submission. Hover your mouse over the
 figure to see individual results.</p>
-<p><img src="images/mira_auto_qc_heatmap_paleyellow.png"><img src="images/mira_auto_qc_heatmap_yellow.png"><img src="images/mira_auto_qc_heatmap_orange.png"><img src="images/mira_auto_qc_heatmap_red.png"></p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><img src="images/mira_auto_qc_heatmap_paleyellow.png" alt="Light yellow"></td>
+<td><img src="images/mira_auto_qc_heatmap_yellow.png" alt="Yellow"></td>
+</tr>
+<tr class="even">
+<td><img src="images/mira_auto_qc_heatmap_orange.png" alt="Orange"></td>
+<td><img src="images/mira_auto_qc_heatmap_red.png" alt="Red"></td>
+</tr>
+<tr class="odd">
+<td>–</td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>
 <p>Review <code>Irma Summary</code>. This summarizes the above
@@ -270,8 +288,8 @@ Excel file.</p>
 <li>
 <p>Review genome coverage depth. The heatmap summarizes the mean
 coverage per sample per gene. All the images in MIRA can be interacted
-with. Play with the gray buttons on the top right of the images. The
-camera icon will save the image. Clicking on a sample in the heatmap, or
+with. Click the gray buttons on the top right of the images. The camera
+icon will save the image. Clicking on a sample in the heatmap, or
 selecting one in the drop down menu will display two plots. On the left
 is a “sankey plot” that shows the number of reads assigned to the
 barcode, how many of those passed IRMA’s QC, and how many are assigned
@@ -317,23 +335,17 @@ criteria and are ready for submission to public databases!</p>
 with the world by uploading to GISAID and/or NCBI and to start analyzing
 your own data!<a class="anchor" aria-label="anchor" href="#wow-you-are-doing-such-great-work--time-to-share-your-sequences-with-the-world-by-uploading-to-gisaid-andor-ncbi-and-to-start-analyzing-your-own-data"></a>
 </h4>
+<ul>
+<li>GISAID: <a href="https://gisaid.org/" class="external-link">https://gisaid.org/</a>
+</li>
+<li>NCBI-Genbank: <a href="https://www.ncbi.nlm.nih.gov/genbank/" class="external-link">https://www.ncbi.nlm.nih.gov/genbank/</a>
+</li>
+<li>NCBI-BLAST: <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="external-link">https://blast.ncbi.nlm.nih.gov/Blast.cgi</a>
+</li>
+<li>Nextclade: <a href="https://clades.nextstrain.org/" class="external-link">https://clades.nextstrain.org/</a>
+</li>
+</ul>
 </div>
-</div>
-<div class="section level3">
-<h3 id="gisaid-httpsgisaid-org">GISAID: <a href="https://gisaid.org/" class="external-link">https://gisaid.org/</a><a class="anchor" aria-label="anchor" href="#gisaid-httpsgisaid-org"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="ncbi-genbank-httpswww-ncbi-nlm-nih-govgenbank">NCBI-Genbank: <a href="https://www.ncbi.nlm.nih.gov/genbank/" class="external-link">https://www.ncbi.nlm.nih.gov/genbank/</a><a class="anchor" aria-label="anchor" href="#ncbi-genbank-httpswww-ncbi-nlm-nih-govgenbank"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="ncbi-blast-httpsblast-ncbi-nlm-nih-govblast-cgi">NCBI-BLAST: <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="external-link">https://blast.ncbi.nlm.nih.gov/Blast.cgi</a><a class="anchor" aria-label="anchor" href="#ncbi-blast-httpsblast-ncbi-nlm-nih-govblast-cgi"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="nextclade-httpsclades-nextstrain-org">Nextclade: <a href="https://clades.nextstrain.org/" class="external-link">https://clades.nextstrain.org/</a><a class="anchor" aria-label="anchor" href="#nextclade-httpsclades-nextstrain-org"></a>
-</h3>
 </div>
   </div>
 

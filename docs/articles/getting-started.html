@@ -44,21 +44,6 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dockerization
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/docker.html">Containerizing MIRA with Docker</a>
-    </li>
-    <li>
-      <a href="../articles/docker-compose.html">Running MIRA with Docker-Compose</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     NGS-Training
      
     <span class="caret"></span>
@@ -68,18 +53,27 @@
       <a href="../articles/getting-started.html">Getting Started</a>
     </li>
     <li>
-      <a href="../articles/setting-up-containers.html">Setting up Containers</a>
+      <a href="../articles/mira-installation.html">MIRA installation</a>
     </li>
     <li>
       <a href="../articles/running-mira.html">Running Genome Assembly with MIRA</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Help
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/FAQs.html">FAQs</a>
     </li>
     <li>
       <a href="../articles/troubleshooting.html">Troubleshooting</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../articles/FAQs.html">FAQs</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -116,41 +110,7 @@
     
     
 <div class="section level2">
-<h2 id="contents">Contents<a class="anchor" aria-label="anchor" href="#contents"></a>
-</h2>
-<div class="section level3">
-<h3 id="computer-requirements">1. <a href="#computer-requirements">Computer requirements</a><a class="anchor" aria-label="anchor" href="#computer-requirements"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="install-linux-on-a-windows-1011-computer">2. <a href="#install-linux-on-a-windows-1011-computer">Install linux
-on a Windows 10/11 computer</a><a class="anchor" aria-label="anchor" href="#install-linux-on-a-windows-1011-computer"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="map-network-drive-in-windows-file-explorer-to-see-folders-and-files-inside-wsl">3. <a href="#map-network-drive-to-be-able-to-use-windows-file-explorer-to-see-folders-and-files-inside-wsl">Map
-network drive in Window’s File Explorer to see folders and files inside
-WSL</a><a class="anchor" aria-label="anchor" href="#map-network-drive-in-windows-file-explorer-to-see-folders-and-files-inside-wsl"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="install-docker-desktop">4. <a href="#install-docker-desktop">Install Docker Desktop</a><a class="anchor" aria-label="anchor" href="#install-docker-desktop"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="install-docker-cli-command-line-interface-in-wsl2">5. <a href="#install-docker-cli-command-line-interface-in-wsl2">Install Docker
-CLI (Command Line Interface) in WSL2</a><a class="anchor" aria-label="anchor" href="#install-docker-cli-command-line-interface-in-wsl2"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="install-a-sequence-viewer">6. <a href="#install-a-sequence-viewer">Install a sequence
-viewer</a><a class="anchor" aria-label="anchor" href="#install-a-sequence-viewer"></a>
-</h3>
-<hr>
-</div>
-</div>
-<div class="section level2">
-<h2 id="computer-requirements-1">Computer requirements<a class="anchor" aria-label="anchor" href="#computer-requirements-1"></a>
+<h2 id="computer-requirements">Computer requirements<a class="anchor" aria-label="anchor" href="#computer-requirements"></a>
 </h2>
 <ul>
 <li>A minimum of 16GB of memory is required. &gt;=32GB is
@@ -169,10 +129,9 @@ installing Docker</a>
 </ul>
 </li>
 </ul>
-<p><a href="#contents">Return to Contents</a></p>
 </div>
 <div class="section level2">
-<h2 id="install-linux-on-a-windows-1011-computer-1">Install linux on a Windows 10/11 computer<a class="anchor" aria-label="anchor" href="#install-linux-on-a-windows-1011-computer-1"></a>
+<h2 id="install-linux-on-a-windows-1011-computer">Install linux on a Windows 10/11 computer<a class="anchor" aria-label="anchor" href="#install-linux-on-a-windows-1011-computer"></a>
 </h2>
 <p>You can get a full linux environment using Windows Subsystem for
 Linux, or WSL. The second version of WSL is WSL2 and is the recommended
@@ -227,7 +186,6 @@ Microsoft’s website here: <a href="https://docs.microsoft.com/en-us/windows/ws
 <br><br>
 </li>
 </ul>
-<p><a href="#contents">Return to Contents</a></p>
 </div>
 <div class="section level2">
 <h2 id="map-network-drive-to-be-able-to-use-windows-file-explorer-to-see-folders-and-files-inside-wsl">Map network drive to be able to use Window’s File Explorer to see
@@ -236,7 +194,8 @@ folders and files inside WSL<a class="anchor" aria-label="anchor" href="#map-net
 <p>**<em>Windows 11 and updated versions of Windows 10 should
 automatically mount Linux. If you have “Linux” in your
 <code>File Explorer</code>, you are good to go and do not need to
-perform this step.</em> <img src="images/map_drive_win11-10_linux.png" alt="alt text"></p>
+perform this step.</em></p>
+<p><img src="images/map_drive_win11-10_linux.png"></p>
 <p>**<em>Many computers have trouble with this step; the folders are not
 selectable during this step. First, make sure that an Ubuntu terminal is
 opened and then open the <code>File Explorer</code>. If “Ubuntu” is
@@ -263,34 +222,34 @@ Browse</a></p></li>
 <a href="./images/map_drive_3.png" target="_blank">and click OK</a> and
 then <code>Finish</code>. You should now see your WSL “drive” available
 in <code>File Explorer</code>:</p>
-<div class="figure">
-<img src="images/map_drive_4.png" alt=""><p class="caption">alt text</p>
-</div>
+<p><img src="images/map_drive_4.png"></p>
 </li>
 </ol>
-<p><a href="#contents">Return to Contents</a></p>
 </div>
 <div class="section level2">
-<h2 id="install-docker-desktop-1">
+<h2 id="install-docker-desktop">
 <a href="https://www.docker.com/products/docker-desktop/" class="external-link">Install
-Docker Desktop</a><a class="anchor" aria-label="anchor" href="#install-docker-desktop-1"></a>
+Docker Desktop</a><a class="anchor" aria-label="anchor" href="#install-docker-desktop"></a>
 </h2>
 <p>Docker allows you to run software inside an isolated “container
 image” on your computer with all of that application’s needed
 dependencies. Make sure to install the version for your operating
-system. - <a href="https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&amp;utm_medium=webreferral&amp;utm_campaign=dd-smartbutton&amp;utm_location=header" class="external-link">Windows</a>
-- <a href="https://desktop.docker.com/mac/main/amd64/Docker.dmg?utm_source=docker&amp;utm_medium=webreferral&amp;utm_campaign=dd-smartbutton&amp;utm_location=module" class="external-link">Mac-Intel</a>
-- <a href="https://desktop.docker.com/mac/main/arm64/Docker.dmg?utm_source=docker&amp;utm_medium=webreferral&amp;utm_campaign=dd-smartbutton&amp;utm_location=module" class="external-link">Mac-AppleChip</a>
-- <a href="https://docs.docker.com/desktop/linux/install/" class="external-link">Linux</a></p>
-<pre><code>- If you get an error related to Docker user groups, go to "Edit local users and groups" from your Windows search bar
-- Click Groups --&gt; docker-users --&gt; Add... --&gt; then enter your username
-  ![alt text](./images/dockerusers.png)</code></pre>
-<p><a href="#contents">Return to Contents</a></p>
+system.</p>
+<ul>
+<li><a href="https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&amp;utm_medium=webreferral&amp;utm_campaign=dd-smartbutton&amp;utm_location=header" class="external-link">Windows</a></li>
+<li><a href="https://desktop.docker.com/mac/main/amd64/Docker.dmg?utm_source=docker&amp;utm_medium=webreferral&amp;utm_campaign=dd-smartbutton&amp;utm_location=module" class="external-link">Mac-Intel</a></li>
+<li><a href="https://desktop.docker.com/mac/main/arm64/Docker.dmg?utm_source=docker&amp;utm_medium=webreferral&amp;utm_campaign=dd-smartbutton&amp;utm_location=module" class="external-link">Mac-AppleChip</a></li>
+<li><a href="https://docs.docker.com/desktop/linux/install/" class="external-link">Linux</a></li>
+</ul>
+<p>If you get an error related to Docker user groups, go to “Edit local
+users and groups” from your Windows search bar Click Groups –&gt;
+docker-users –&gt; Add… –&gt; then enter your username</p>
+<p><img src="images/dockerusers.png"></p>
 </div>
 <div class="section level2">
-<h2 id="install-docker-cli-command-line-interface-in-wsl2-1">
+<h2 id="install-docker-cli-command-line-interface-in-wsl2">
 <a href="https://docs.docker.com/engine/install/ubuntu/" class="external-link">Install
-Docker CLI (Command Line Interface) in WSL2</a><a class="anchor" aria-label="anchor" href="#install-docker-cli-command-line-interface-in-wsl2-1"></a>
+Docker CLI (Command Line Interface) in WSL2</a><a class="anchor" aria-label="anchor" href="#install-docker-cli-command-line-interface-in-wsl2"></a>
 </h2>
 <p>All following lines of code can be copy/pasted into your terminal.
 Pasting using <code>CTRL</code>+<code>V</code> into a terminal my not
@@ -316,17 +275,17 @@ can move to step 3.</em></li>
 <code>Enter</code>
 </li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir <span class="at">-p</span> /etc/apt/keyrings</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://download.docker.com/linux/ubuntu/gpg <span class="kw">|</span> <span class="fu">sudo</span> gpg <span class="at">--dearmor</span> <span class="at">-o</span> /etc/apt/keyrings/docker.gpg</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="dt">\</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">"deb [arch=</span><span class="va">$(</span><span class="ex">dpkg</span> <span class="at">--print-architecture</span><span class="va">)</span><span class="st"> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu </span><span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">$(</span><span class="ex">lsb_release</span> <span class="at">-cs</span><span class="va">)</span><span class="st"> stable"</span> <span class="kw">|</span> <span class="fu">sudo</span> tee /etc/apt/sources.list.d/docker.list <span class="op">&gt;</span> /dev/null</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir <span class="at">-p</span> /etc/apt/keyrings</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://download.docker.com/linux/ubuntu/gpg <span class="kw">|</span> <span class="fu">sudo</span> gpg <span class="at">--dearmor</span> <span class="at">-o</span> /etc/apt/keyrings/docker.gpg</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">"deb [arch=</span><span class="va">$(</span><span class="ex">dpkg</span> <span class="at">--print-architecture</span><span class="va">)</span><span class="st"> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu </span><span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">$(</span><span class="ex">lsb_release</span> <span class="at">-cs</span><span class="va">)</span><span class="st"> stable"</span> <span class="kw">|</span> <span class="fu">sudo</span> tee /etc/apt/sources.list.d/docker.list <span class="op">&gt;</span> /dev/null</span></code></pre></div>
 </li>
 <li>
 <p>Install Docker CLI <code>bash     sudo apt-get update</code></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chmod a+r /etc/apt/keyrings/docker.gpg</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chmod a+r /etc/apt/keyrings/docker.gpg</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span></code></pre></div>
 </li>
 <li>
 <p>Verify successful installation
@@ -339,12 +298,12 @@ prompted for your WSL2 password.</li>
 <li>If you get an error related to starting Docker, run the following
 command, then try to run hello-world again</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> service docker start</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> service docker start</span></code></pre></div>
 <ul>
 <li>If you get an error related to “Permission Denied” of docker.sock,
 run the following command, then try to run hello-world again</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chmod <span class="at">-755</span> /run/docker.sock</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chmod <span class="at">-755</span> /run/docker.sock</span></code></pre></div>
 <ul>
 <li>If you can now see the hello-world container in Docker Desktop, you
 can proceed to pulling and running iSpy containers</li>
@@ -357,13 +316,12 @@ checked off, and that Ubuntu-18.04 distro is switched on <img src="images/WSL_do
 <li>If your hello-world container still is not showing, open the
 Ubuntu-18.04 command prompt and run:</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">-p</span> 80:80 docker/getting-started</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">-p</span> 80:80 docker/getting-started</span></code></pre></div>
 </li>
 </ol>
-<p><a href="#contents">Return to Contents</a></p>
 </div>
 <div class="section level2">
-<h2 id="install-a-sequence-viewer-1">Install a sequence viewer<a class="anchor" aria-label="anchor" href="#install-a-sequence-viewer-1"></a>
+<h2 id="install-a-sequence-viewer">Install a sequence viewer<a class="anchor" aria-label="anchor" href="#install-a-sequence-viewer"></a>
 </h2>
 <ul>
 <li><a href="https://bioedit.software.informer.com/" class="external-link">Windows Bio
@@ -374,7 +332,6 @@ Aliview</a></li>
 <hr>
 <hr>
 <p><br><br></p>
-<p><a href="#contents">Return to Contents</a></p>
 </div>
   </div>
 
